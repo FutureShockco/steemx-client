@@ -1,0 +1,91 @@
+
+.multiselect {
+    background: $input-bg !important;
+    border: $input-border-width solid $input-border-color !important;
+    font-size: $input-font-size !important;
+    border-radius: $input-border-radius !important; 
+    min-height: $input-height-inner !important;
+
+    &.is-active {
+        border: $input-border-width solid var(--#{$prefix}primary) !important;
+        box-shadow: none !important;
+    }
+}
+
+
+.multiselect-wrapper {
+    font-size: var(--#{$prefix}font-base) !important;
+    min-height: $input-height-inner !important;
+
+    .multiselect-tag {
+        background-color: var(--#{$prefix}primary) !important;
+        color: $white !important;
+        border: $input-border-width solid var(--#{$prefix}primary) !important;
+        font-size: 11px !important;
+        font-weight: $input-font-weight !important;
+        line-height: $input-line-height !important;
+        .multiselect-tag-remove {
+            position: relative;
+            display: inline-block;
+            margin-top: 0 !important;
+            margin-right: -4px !important;
+            margin-bottom: 0 !important;
+            margin-left: 8px !important;
+            padding-left: 16px !important;
+            border-left: 1px solid rgba(255, 255, 255, .5) !important;
+            border-right: 0 !important;
+            background-size: 8px !important;
+            width: 8px !important;
+            line-height: 1 !important;
+            opacity: .75 !important;
+            border-radius: 0 !important;
+
+            .multiselect-tag-remove-icon {
+                position: absolute !important;
+                top: -1px !important;
+                left: 2px !important;
+            }
+        }
+    }
+}
+
+.multiselect-dropdown {
+    background: $input-bg !important;
+    border: $input-border-width solid $input-border-color !important;
+    border-radius: $input-border-radius !important;
+    //     max-height: 300px;
+    //     overflow: auto;
+
+    .multiselect-option {
+        color: var(--#{$prefix}secondary-color) !important;
+        position: relative !important;
+        font-size: $dropdown-font-size !important;
+        padding: $dropdown-item-padding-y $dropdown-item-padding-x $dropdown-item-padding-y 16px !important;
+        font-size: var(--#{$prefix}font-base) !important;
+    }
+}
+
+.multiselect-search {
+    background: $input-bg !important;
+    border-radius: $input-border-radius !important;
+}
+
+.multiselect-option {
+    &.is-pointed {
+        background: var(--#{$prefix}tertiary-bg) !important;
+    }
+
+    &.is-selected {
+        background: var(--#{$prefix}primary) !important;
+        color: $white !important;
+    }
+
+    &.is-selected.is-pointed {
+        background: var(--#{$prefix}primary) !important;
+        color: $white !important;
+    }
+}
+
+.multiselect-tags-search {
+    background: $input-bg !important;
+}
