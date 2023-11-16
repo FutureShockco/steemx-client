@@ -22,6 +22,15 @@ const routes = [
     },
   },
   {
+    path: '/callback',
+    name: 'callback',
+    component: () => import("../views/Callback"),
+    meta: {
+      title: "Login",
+   
+    },
+  },
+  {
     path: "/register",
     name: "Register",
     component: () => import("../views/account/register"),
