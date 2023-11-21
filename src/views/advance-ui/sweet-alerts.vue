@@ -199,7 +199,7 @@ export default {
         icon: "info",
         html:
           'You can use <b>bold text</b>, ' +
-          '<a href="//Themesbrand.in/">links</a> ' +
+          '<a href="//Futureshock.in/">links</a> ' +
           'and other HTML tags',
         showCancelButton: true,
         showCloseButton: true,

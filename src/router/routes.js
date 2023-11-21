@@ -27,7 +27,6 @@ const routes = [
     component: () => import("../views/Callback"),
     meta: {
       title: "Login",
-   
     },
   },
   {
@@ -48,24 +47,7 @@ const routes = [
       },
     },
   },
-  {
-    path: "/forgot-password",
-    name: "Forgot password",
-    component: () => import("../views/account/forgot-password"),
-    meta: {
-      title: "Forgot Password",
-      beforeResolve(routeTo, routeFrom, next) {
-        // If the user is already logged in
-        if (store.getters["auth/loggedIn"]) {
-          // Redirect to the home page instead
-          next({ name: "default" });
-        } else {
-          // Continue to the login page
-          next();
-        }
-      },
-    },
-  },
+ 
   {
     path: "/logout",
     name: "logout",
@@ -107,9 +89,9 @@ const routes = [
   // Crypto
   {
     path: "/tokens",
-    name: "crypto-marketplace",
-    meta: { title: "Marketplace", authRequired: true },
-    component: () => import("../views/crypto/tokens"),
+    name: "tokens",
+    meta: { title: "Tokens", authRequired: true },
+    component: () => import("../views/Tokens/Tokens"),
   },
   {
     path: "/lease",
@@ -128,6 +110,19 @@ const routes = [
     name: "crypto-transactions",
     meta: { title: "Transactions", authRequired: true },
     component: () => import("../views/crypto/transactions"),
+  },
+
+  {
+    path: "/trade/:token",
+    name: "Trade",
+    meta: { title: "Coin Overview", authRequired: true },
+    component: () => import("../views/crypto/coin-overview"),
+  },
+  {
+    path: "/trade/steem",
+    name: "Trade",
+    meta: { title: "Market", authRequired: true },
+    component: () => import("../views/SteemMarket/Market"),
   },
   {
     path: "/crypto/coin-overview",
@@ -267,18 +262,6 @@ const routes = [
     name: "signup",
     meta: { title: "Sign Up", authRequired: true },
     component: () => import("../views/auth/signup"),
-  },
-  {
-    path: "/auth/pass-reset",
-    name: "pass-reset",
-    meta: { title: "Password Reset", authRequired: true },
-    component: () => import("../views/auth/pass-reset"),
-  },
-  {
-    path: "/auth/pass-change",
-    name: "pass-change",
-    meta: { title: "Password Change", authRequired: true },
-    component: () => import("../views/auth/pass-change"),
   },
   {
     path: "/auth/lockscreen",

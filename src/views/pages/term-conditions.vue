@@ -50,12 +50,12 @@ export default {
                 </div>
                 <BCardBody>
                     <BCardTitle tag="h6" class="mb-3"><i class="bi bi-circle-square align-baseline me-1 text-info"></i> Welcome to SteemX!</BCardTitle>
-                    <p class="text-muted mb-2">These Themesbrand Standard Terms and Conditions written on this webpage shall manage your use of our website, themesbrand accessible at <BLink href="https://themesbrand.com">themesbrand.com</BLink>.</p>
+                    <p class="text-muted mb-2">These Futureshock Standard Terms and Conditions written on this webpage shall manage your use of our website, themesbrand accessible at <BLink href="https://themesbrand.com">themesbrand.com</BLink>.</p>
                     <p class="text-muted mb-2">These Terms will be applied fully and affect to your use of this Website. By using this Website, you agreed to accept all terms and conditions written in here. You must not use this Website if you disagree with any of these Website Standard Terms and Conditions.</p>
                     <p class="text-muted">Minors or people below 18 years old are not allowed to use this Website.</p>
 
                     <BCardTitle tag="h6" class="mb-3"><i class="bi bi-circle-square align-baseline me-1 text-info"></i> Intellectual Property Rights</BCardTitle>
-                    <p class="text-muted mb-2">Other than the content you own, under these Terms, Company Name and/or its licensors own all the intellectual property rights and materials contained in this Themesbrand.</p>
+                    <p class="text-muted mb-2">Other than the content you own, under these Terms, Company Name and/or its licensors own all the intellectual property rights and materials contained in this Futureshock.</p>
                     <p class="text-muted">You are granted limited license only for purposes of viewing the material contained on this Website.</p>
 
                     <BCardTitle tag="h6" class="mb-3"><i class="bi bi-circle-square align-baseline me-1 text-info"></i> Restrictions</BCardTitle>
@@ -87,7 +87,7 @@ export default {
                         </li>
                     </ul>
                     <BCardTitle tag="h6" class="mb-3"><i class="bi bi-circle-square align-baseline me-1 text-info"></i> No warranties</BCardTitle>
-                    <p class="text-muted">This Website is provided “as is,” with all faults, and Themesbrand express no representations or warranties, of any kind related to this Website or the materials contained on this Website. Also, nothing contained on this Website shall be interpreted as advising you.</p>
+                    <p class="text-muted">This Website is provided “as is,” with all faults, and Futureshock express no representations or warranties, of any kind related to this Website or the materials contained on this Website. Also, nothing contained on this Website shall be interpreted as advising you.</p>
 
                     <BCardTitle tag="h6" class="mb-3"><i class="bi bi-circle-square align-baseline me-1 text-info"></i> Entire Agreement</BCardTitle>
                     <p class="text-muted">These Terms constitute the entire agreement between Company Name and you in relation to your use of this Website, and supersede all prior agreements and understandings.</p>

@@ -55,7 +55,7 @@ export default {
                                             <p class="text-white text-opacity-75 mb-0 mt-3">
                                                 &copy; {{ new Date().getFullYear() }} SteemX. Crafted with <i
                                                     class="bi bi-heart-fill text-danger"></i> by <BLink href="#!"
-                                                    class="text-white">Themesbrand</BLink>
+                                                    class="text-white">Futureshock</BLink>
                                             </p>
                                         </div>
                                     </BCardBody>
@@ -129,7 +129,7 @@ export default {
                                             </form>
 
                                             <div class="text-center mt-5">
-                                                <p class="mb-0">Don't have an account ? <router-link to="/auth/signup"
+                                                <p class="mb-0">Don't have a Steem account ? <router-link to="/auth/signup"
                                                         class="fw-semibold text-secondary text-decoration-underline">
                                                         SignUp</router-link> </p>
                                             </div>

@@ -1,12 +1,14 @@
 <script>
 import { required, email, helpers } from "@vuelidate/validators";
 import axios from 'axios';
+import sl from '@/helpers/steemlogin';
 
 import { authMethods, authFackMethods, notificationMethods } from "@/state/helpers";
 
 export default {
     data() {
         return {
+            username: "",
             email: "admin@themesbrand.com",
             password: "123456",
             submitted: false,
@@ -14,10 +16,12 @@ export default {
             tryingToLogIn: false,
             isAuthError: false,
             processing: false,
-            togglePassword: false
-
+            togglePassword: false,
+            loginURL: sl.getLoginURL(),
+            hasKeychain: window.steem_keychain !== undefined ? true : false
         };
     },
+
     validations: {
         email: {
             required: helpers.withMessage("Email is required", required),
@@ -31,8 +35,34 @@ export default {
         ...authMethods,
         ...authFackMethods,
         ...notificationMethods,
+        async signinKeychain() {
+            this.processing = true;
+            const that = this;
+            window.steem_keychain.requestSignBuffer(
+                that.username,
+                'hello',
+                'Posting',
+                function (response) {
+                    console.log("main js response - verify key");
+                    console.log(response);
+                    if (!response.success) {
+                        that.processing = false;
+                        return that.authError = response.message;
+                    }
+                    else {
+                        localStorage.setItem('keychain', that.username);
+                        that.$router.push({
+                            path: '/'
+                        });
+                    }
 
+                }
+            );
+
+
+        },
         async signinapi() {
+
             this.processing = true;
             const result = await axios.post('https://api-node.themesbrand.website/auth/signin', {
                 email: this.email,
@@ -107,6 +137,11 @@ export default {
     },
     mounted() {
         document.documentElement.setAttribute("data-bs-theme", this.$store.state.layout.mode);
+        const that = this;
+
+        window.addEventListener('load', () => {
+            that.hasKeychain = window.steem_keychain !== undefined ? true : false;
+        })
     }
 };
 </script>
@@ -157,7 +192,7 @@ export default {
                                             <p class="text-white text-opacity-75 mb-0 mt-3">
                                                 &copy; {{ new Date().getFullYear() }} SteemX. Crafted with <i
                                                     class="bi bi-heart-fill text-danger"></i> by <BLink href="#!"
-                                                    class="text-white">Themesbrand</BLink>
+                                                    class="text-white">Futureshock</BLink>
                                             </p>
                                         </div>
                                     </BCardBody>
@@ -170,32 +205,31 @@ export default {
                                             <h5 class="fs-3xl">Welcome Back</h5>
                                             <p class="text-muted">Sign in to continue to SteemX.</p>
                                         </div>
-                                        <div class="p-2 mt-5">
+                                        <div class="p-2">
+                                            <!-- <div class="p-2 mt-5"></div> -->
                                             <form @submit.prevent="tryToLogIn">
 
                                                 <div class="mb-3">
-                                                    <label for="username" class="form-label">Username <span
+                                                    <label for="username" class="form-label">Account name <span
                                                             class="text-danger">*</span></label>
                                                     <div class="position-relative ">
-                                                        <input type="email"
+                                                        <input type="username"
                                                             class="form-control bg-light border-light password-input"
-                                                            id="username" placeholder="Enter username" v-model="email"
-                                                            required>
+                                                            id="username" placeholder="Enter your steem username"
+                                                            v-model="username" required>
                                                     </div>
                                                 </div>
 
-                                                <div class="mb-3">
-                                                    <div class="float-end">
-                                                        <router-link to="/forgot-password" class="text-muted">Forgot
-                                                            password?</router-link>
-                                                    </div>
-                                                    <label class="form-label" for="password-input">Password <span
+                                                <!-- <div class="mb-3">
+
+                                                    <label class="form-label" for="password-input">Posting key <span
                                                             class="text-danger">*</span></label>
                                                     <div class="position-relative auth-pass-inputgroup mb-3">
 
                                                         <input :type="togglePassword ? 'text' : 'password'"
                                                             class="form-control bg-light border-light pe-5 password-input "
-                                                            placeholder="Enter password" id="password-input" v-model="password" required>
+                                                            placeholder="Enter password" id="password-input"
+                                                            v-model="password" required>
                                                         <button
                                                             class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
                                                             type="button" id="password-addon"
@@ -209,15 +243,29 @@ export default {
                                                         id="auth-remember-check">
                                                     <label class="form-check-label" for="auth-remember-check">Remember
                                                         me</label>
+                                                </div> -->
+                                                <div class="mt-4">
+                                                    <button class="btn btn-primary w-100" type="submit"
+                                                        @click="signinKeychain" :disabled="!hasKeychain || processing">{{
+                                                            processing ? "Please wait" :
+                                                            "SteemKeychain"
+                                                        }}</button>
+                                                </div>
+                                                <div class="mt-4">
+                                                    <a class="btn btn-primary w-100" :href="loginURL"
+                                                        :disabled="processing">{{ processing ? "Please wait" : "Steemlogin"
+                                                        }} </a>
                                                 </div>
 
-                                                <div class="mt-4">
+
+
+                                                <!-- <div class="mt-4">
                                                     <button class="btn btn-primary w-100" type="submit" @click="signinapi"
                                                         :disabled="processing">{{ processing ? "Please wait" : "Sign In"
                                                         }}</button>
-                                                </div>
+                                                </div> -->
 
-                                                <div class="mt-4 pt-2 text-center">
+                                                <!-- <div class="mt-4 pt-2 text-center">
                                                     <div class="signin-other-title position-relative">
                                                         <h5 class="fs-sm mb-4 title">Sign In with</h5>
                                                     </div>
@@ -231,13 +279,16 @@ export default {
                                                         <button type="button" class="btn btn-subtle-info btn-icon"><i
                                                                 class="ri-twitter-fill fs-lg"></i></button>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </form>
 
                                             <div class="text-center mt-5">
-                                                <p class="mb-0">Don't have an account ? <router-link to="/register"
-                                                        class="fw-semibold text-secondary text-decoration-underline">
-                                                        SignUp</router-link> </p>
+                                                <p class="mb-0">Don't have a Steem account ? <router-link to="/register"
+                                                        class="fw-semibold text-success text-decoration-underline">
+                                                        Sign Up</router-link> </p>
+                                                <p class="mb-0">Download <router-link to="/register"
+                                                        class="fw-semibold text-danger text-decoration-underline">
+                                                        Steem Keychain</router-link> </p>
                                             </div>
                                         </div>
                                     </BCardBody>

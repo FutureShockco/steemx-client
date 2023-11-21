@@ -1,9 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import routes from './routes';
 import appConfig from "../../app.config";
-
-import axios from 'axios';
-import store from '@/state/store';
+import client from "@/helpers/client"
 
 const router = createRouter({
   history: createWebHistory(),
@@ -25,11 +23,12 @@ const router = createRouter({
 router.beforeEach(async (routeTo, routeFrom, next) => {
   const authRequired = routeTo.matched.some((route) => route.meta.authRequired);
   if (!authRequired) return next();
-  axios.defaults.headers.common['authorization'] = 'Bearer ' + localStorage.getItem('jwt'); // for all requests
-  await axios.get('https://api-node.themesbrand.website/profile').then((data) => {
-    localStorage.setItem('userdata', JSON.stringify(data.data.user));
-    localStorage.setItem('userid', data.data.user._id);
-    localStorage.setItem('user', JSON.stringify(data.data.user));
+  const username = localStorage.getItem('username'); // for all requests
+  await client.database.getAccounts([username]).then((data) => {
+    const account = data[0]
+    localStorage.setItem('userdata', JSON.stringify(account));
+    localStorage.setItem('userid', account.id);
+    localStorage.setItem('user', JSON.stringify(account.name));
     next();
   }).catch(() => {
     next({ name: 'login', query: { redirectFrom: routeTo.fullPath } });
@@ -37,54 +36,21 @@ router.beforeEach(async (routeTo, routeFrom, next) => {
 });
 
 router.beforeEach((routeTo, routeFrom, next) => {
-  if (process.env.VUE_APP_DEFAULT_AUTH === "firebase") {
 
-    // Check if auth is required on this route
-    // (including nested routes).
-    const authRequired = routeTo.matched.some((route) => route.meta.authRequired);
+  const publicPages = ['/login', '/register', '/callback'];
+  const authpage = !publicPages.includes(routeTo.path);
+  const loggeduser = localStorage.getItem('user');
 
-    // If auth isn't required for the route, just continue.
-    if (!authRequired) return next();
-    // If auth is required and the user is logged in...
-    if (store.getters['auth/loggedIn']) {
-      // Validate the local user token...
-      return store.dispatch('auth/validate').then((validUser) => {
-        // Then continue if the token still represents a valid user,
-        // otherwise redirect to login.
-        validUser ? next() : redirectToLogin();
-      });
-    }
-
-    // If auth is required and the user is NOT currently logged in,
-    // redirect to login.
-    redirectToLogin();
-
-    // eslint-disable-next-line no-unused-vars
-    // eslint-disable-next-line no-inner-declarations
-    function redirectToLogin() {
-      // Pass the original route to the login component
-      next({ name: 'login', query: { redirectFrom: routeTo.fullPath } });
-    }
-  } else {
-    const publicPages = ['/login', '/register', '/forgot-password'];
-    const authpage = !publicPages.includes(routeTo.path);
-    const loggeduser = localStorage.getItem('user');
-
-    if (authpage && !loggeduser) {
-      return next('/login');
-    }
-
-    next();
+  if (authpage && !loggeduser) {
+    return next('/login');
   }
+
+  next();
+
 });
 
 router.beforeResolve(async (routeTo, routeFrom, next) => {
-  // Create a `beforeResolve` hook, which fires whenever
-  // `beforeRouteEnter` and `beforeRouteUpdate` would. This
-  // allows us to ensure data is fetched even when params change,
-  // but the resolved route does not. We put it in `meta` to
-  // indicate that it's a hook we created, rather than part of
-  // Vue Router (yet?).
+
   try {
     // For each matched route...
     for (const route of routeTo.matched) {

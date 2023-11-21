@@ -19,6 +19,10 @@ export default {
   },
   mounted() {
     this.loadTokens()
+    setInterval(() => {
+      this.loadTokens()
+    }, 3000);
+
   },
   methods: {
     ...cryptoApiMethods

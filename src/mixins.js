@@ -10,6 +10,12 @@ export default {
     ...mapState(modules)
   },
   methods: {
+    _d(number, format = '0,0.00') {
+      return '$' + numeral(number).format(format);
+    },
+    _p(number) {
+      return number.toFixed(2) + '%';
+    },
     _n(number, format = '(0.00a)') {
       return number > 0 ? numeral(number).format(format) : 0;
     },
@@ -34,6 +40,7 @@ export default {
       } else {
         return false;
       }
-    }
+    },
+
   }
 };

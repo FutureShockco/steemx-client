@@ -19,7 +19,7 @@ export const layoutComputed = {
   })
 };
 
-export const authMethods = mapActions('auth', ['logIn', 'logOut', 'register', 'resetPassword']);
+export const authMethods = mapActions('auth', ['login', 'logIn', 'logOut', 'register']);
 
 export const layoutMethods = mapActions('layout',
   ['changeMode', 'changeCardLayout', 'changeLayoutWidth', 'changePosition', 'changeTopbar', 'changeTopbarImage', 'changePreloader']);

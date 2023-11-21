@@ -7,11 +7,12 @@ import i18n from './i18n';
 import VueApexCharts from "vue3-apexcharts";
 import { vMaska } from "maska";
 import mixins from '@/mixins';
+import ws from '@/helpers/kbyte';
 import './assets/scss/app.scss';
 import 'bootstrap-vue-next/dist/bootstrap-vue-next.css';
 import 'simplebar/dist/simplebar.min.css';
 
-
+setInterval(() => ws.request('heartbeat', null), 10 * 1000);
 // FakeBackend authentication
 // import { configureFakeBackend } from './helpers/fake-backend';
 // configureFakeBackend();

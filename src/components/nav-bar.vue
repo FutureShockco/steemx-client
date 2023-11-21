@@ -588,7 +588,7 @@ export default {
                                     </p>
                                 </div>
                             </div>
-                            <router-link to="/pages/profile" class="dropdown-item"><i class="bi bi-person align-middle me-2"></i>
+                            <router-link to="/wallet" class="dropdown-item"><i class="bi bi-person align-middle me-2"></i>
                                 Profile</router-link>
                             <router-link to="/chat" class="dropdown-item"><i class="bi bi-chat-right-text align-middle me-2"></i>
                                 Messages</router-link>

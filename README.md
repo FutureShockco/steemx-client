@@ -1,4 +1,4 @@
-# steemx-client
+# SteemX Client
 
 ## Project setup
 ```

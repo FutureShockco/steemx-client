@@ -257,7 +257,7 @@ export default {
                                         <tbody>
                                             <tr v-for="(data, index) of resultQuery" :key="index">
                                                 <!-- {{ data }} -->
-                                                <th scope="row">{{ index + 1 }}</th>
+                                                <th scope="row">{{ data.rank }}</th>
                                                 <td>
                                                     <router-link to="/crypto/coin-overview"
                                                         class="d-flex gap-2 align-items-center">
@@ -268,11 +268,11 @@ export default {
                                                         </h6>
                                                     </router-link>
                                                 </td>
-                                                <td>$ {{ data.PRICE.toFixed(3) }}</td>
-                                                <td class="text-success">{{ data.CHANGEHOUR }}</td>
-                                                <td class="text-danger">{{ data.CHANGE24HOUR }}</td>
+                                                <td>{{ _d(data.PRICE) }}</td>
+                                                <td :class="data.CHANGEPCTHOUR > 0 ? 'text-success' : 'text-danger'">{{ _p(data.CHANGEPCTHOUR) }}</td>
+                                                <td  :class="data.CHANGEPCT24HOUR > 0 ? 'text-success' : 'text-danger'">{{ _p(data.CHANGEPCT24HOUR) }}</td>
                                                 <td class="text-danger">{{ data.change_7d }}</td>
-                                                <td>{{ data.MKTCAP }}</td>
+                                                <td>{{ _n(data.MKTCAP) }}</td>
                                                 <td>{{ data.VOLUME24HOUR }}</td>
                                                 <td>
                                                     <BDropdown variant="link"
@@ -280,7 +280,7 @@ export default {
                                                         menu-class="dropdown-menu-end">
                                                         <template #button-content> <i class="bi bi-three-dots-vertical"></i>
                                                         </template>
-                                                        <BDropdownItem href="/crypto/coin-overview">Overview
+                                                        <BDropdownItem href="/crypto/coin-overview">Trade
                                                         </BDropdownItem>
                                                         <BDropdownItem :to="'/deposit/' + data.name">Deposit
                                                         </BDropdownItem>

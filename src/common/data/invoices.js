@@ -2,14 +2,14 @@ const invoicesList = [
     {
         invoice_no: '24301901',
         logo_img: require('@/assets/images/logo-dark.png'),
-        customer: 'Themesbrand',
+        customer: 'Futureshock',
         email: "themesbrand@steemx.com",
         createDate: "28 Mar, 2023",
         dueDate: "06 Apr, 2023",
         invoice_amount: 381.76,
         status: 'Paid',
         billing_address: {
-            full_name: 'Themesbrand',
+            full_name: 'Futureshock',
             address: '5114 Adipiscing St. Puno United States 46782',
             phone: '(926) 817-7835',
             tax: '123456789'

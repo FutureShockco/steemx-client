@@ -4,7 +4,7 @@ import PageHeader from "@/components/page-header.vue";
 import RightBar from "@/components/right-bar.vue";
 
 import { CountTo } from 'vue3-count-to';
-import ssc from '@/helpers/ssc';
+// import ssc from '@/helpers/ssc';
 
 import { marketCapitalizationChart, allocationOverviewChart, stockMarketGainersChart } from "./data";
 
@@ -19,7 +19,7 @@ export default {
       series: [{
         data: this.$store.state.tokens.steemHistory
       }],
-      topCurrencies: this.$store.state.tokens.top.slice(0, 4),
+      topCurrencies: this.$store.state.tokens.top.slice(1, 5),
       chartOptions: {
         chart: {
           type: 'candlestick',
@@ -124,11 +124,11 @@ export default {
   },
   async created() {
     this.setPages();
-    setInterval(() => {
-      ssc.getLatestBlockInfo((err, result) => {
-        console.log(err, result);
-      });
-    }, 3000);
+    // setInterval(() => {
+    //   ssc.getLatestBlockInfo((err, result) => {
+    //     console.log(err, result);
+    //   });
+    // }, 3000);
   },
   methods: {
     setPages() {

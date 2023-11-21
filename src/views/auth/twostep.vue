@@ -67,7 +67,7 @@ export default {
                                                 &copy;
                                                 {{ new Date().getFullYear() }} SteemX. Crafted with <i
                                                     class="bi bi-heart-fill text-danger"></i> by <BLink href="#!"
-                                                    class="text-white">Themesbrand</BLink>
+                                                    class="text-white">Futureshock</BLink>
                                             </p>
                                         </div>
                                     </BCardBody>

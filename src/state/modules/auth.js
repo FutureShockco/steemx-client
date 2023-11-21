@@ -1,4 +1,6 @@
 import { getFirebaseBackend } from '../../authUtils.js'
+import client from '@/helpers/client';
+import sc from '@/helpers/steemlogin';
 
 export const state = {
     currentUser: sessionStorage.getItem('authUser'),
@@ -8,8 +10,20 @@ export const mutations = {
     SET_CURRENT_USER(state, newValue) {
         state.currentUser = newValue
         saveState('auth.currentUser', newValue)
+    },
+    saveUsername(_state, payload) {
+        _state.username = payload
+    },
+    saveAccount(_state, payload) {
+        _state.account = payload
+        state.currentUser = payload
+        saveState('auth.currentUser', payload)
+    },
+    logout(_state) {
+        _state.username = null
     }
 }
+
 
 export const getters = {
     // Whether the user is currently logged in.
@@ -18,6 +32,13 @@ export const getters = {
     }
 }
 
+async function loadaccount(commit, username) {
+    const account = await client.database.getAccounts([username]);
+    account[0].loggeduser = true
+    commit('saveAccount', account[0]);
+}
+
+
 export const actions = {
     // This is automatically run in `src/state/store.js` when the app
     // starts, along with any other actions named `init` in other modules.
@@ -25,7 +46,39 @@ export const actions = {
     init({ state, dispatch }) {
         dispatch('validate')
     },
+    login: async ({ commit }) =>
+        new Promise(resolve => {
+            console.log('jey')
+            if (localStorage.getItem('access_token')) {
+                const token = localStorage.getItem('access_token');
+                console.log(token)
+                sc.setAccessToken(token);
+                sc.me()
+                    .then(result => {
+                        commit('saveUsername', result.name);
+                        loadaccount(commit, result.name);
+                        resolve();
+                    })
+                    .catch(e => {
+                        console.log(e);
+                        localStorage.removeItem('access_token');
+                        localStorage.removeItem('id_token');
+                        localStorage.removeItem('loggedIn');
+                        window.location = '/';
+                        resolve(e);
+                    });
+            } else {
+                console.log('no access token');
+                resolve();
+            }
+        }),
 
+    logout: () => {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('id_token');
+        localStorage.removeItem('loggedIn');
+        window.location = '/';
+    },
     // Logs in the current user.
     logIn({ commit, dispatch, getters }, { email, password } = {}) {
         if (getters.loggedIn) return dispatch('validate')
@@ -62,16 +115,6 @@ export const actions = {
         });
     },
 
-    // register the user
-    // eslint-disable-next-line no-unused-vars
-    resetPassword({ commit, dispatch, getters }, { email } = {}) {
-        if (getters.loggedIn) return dispatch('validate')
-
-        return getFirebaseBackend().forgetPassword(email).then((response) => {
-            const message = response.data
-            return message
-        });
-    },
 
     // Validates the current user's token and refreshes it
     // with new data from the API.

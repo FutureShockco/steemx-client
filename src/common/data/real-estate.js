@@ -28,7 +28,7 @@ const agenciesList = [
         since: "1998",
         img: require("@/assets/images/companies/img-5.png"),
         img_alt: "img-5.png",
-        name: "Themesbrand",
+        name: "Futureshock",
         location: "Sobrado, Spain",
         property: "953",
         employee: "17",
