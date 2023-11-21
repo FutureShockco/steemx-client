@@ -50,7 +50,9 @@ export default {
                         return that.authError = response.message;
                     }
                     else {
-                        localStorage.setItem('keychain', that.username);
+                        localStorage.setItem('user', that.username);
+                        localStorage.setItem('login_type', "keychain");
+
                         that.$router.push({
                             path: '/'
                         });

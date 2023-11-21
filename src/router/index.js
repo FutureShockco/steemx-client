@@ -23,7 +23,8 @@ const router = createRouter({
 router.beforeEach(async (routeTo, routeFrom, next) => {
   const authRequired = routeTo.matched.some((route) => route.meta.authRequired);
   if (!authRequired) return next();
-  const username = localStorage.getItem('username'); // for all requests
+  const username = localStorage.getItem('username');
+
   await client.database.getAccounts([username]).then((data) => {
     const account = data[0]
     localStorage.setItem('userdata', JSON.stringify(account));

@@ -1,6 +1,7 @@
 import { getFirebaseBackend } from '../../authUtils.js'
 import client from '@/helpers/client';
 import sc from '@/helpers/steemlogin';
+import ws from '@/helpers/kbyte';
 
 export const state = {
     currentUser: sessionStorage.getItem('authUser'),
@@ -46,13 +47,14 @@ export const actions = {
     init({ state, dispatch }) {
         dispatch('validate')
     },
-    login: async ({ commit }) =>
+    login: async ({ commit }, username, message, type) =>
         new Promise(resolve => {
-            console.log('jey')
-            if (localStorage.getItem('access_token')) {
-                const token = localStorage.getItem('access_token');
-                console.log(token)
+
+            if (type === 'steemlogin') {
                 sc.setAccessToken(token);
+                ws.requestAsync('login', { username, message, type }).then((result) => {
+                    console.log(result)
+                })
                 sc.me()
                     .then(result => {
                         commit('saveUsername', result.name);
@@ -67,10 +69,23 @@ export const actions = {
                         window.location = '/';
                         resolve(e);
                     });
-            } else {
+            } else if (type === 'keychain') {
                 console.log('no access token');
                 resolve();
             }
+            else {
+                console.log('no access token');
+                resolve();
+            }
+
+            const username = localStorage.getItem('username');
+            const ltype = localStorage.getItem('login_type');
+            const token = localStorage.getItem('token');
+            ws.requestAsync('login', { username, message: "", type: ltype, token }).then((result) => {
+                console.log(result)
+            }).catch((e) => {
+                console.log(e)
+            });
         }),
 
     logout: () => {

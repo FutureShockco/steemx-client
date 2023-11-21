@@ -16,9 +16,9 @@ export default {
   created() {
     localStorage.setItem('access_token', this.accessToken);
     localStorage.setItem('username', this.username);
-    localStorage.setItem('keychain', false);
-
-    this.login(this.accessToken)
+    localStorage.setItem('login_type', "steemlogin");
+    console.log(this.accessToken)
+    this.login(this.username, this.accessToken, 'steemlogin')
       .then(() => {
         window.location = '/';
       })
