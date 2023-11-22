@@ -10,11 +10,7 @@ export default {
     };
   },
   components: {
-    
-    
-    
-    flatPickr,
-    CardHeader
+    flatPickr
   },
 };
 </script>

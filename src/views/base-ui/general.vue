@@ -13,12 +13,7 @@ export default {
       ex4Rows: ref(100),
     };
   },
-  components: {
-    
-    
-    
-    CardHeader,
-  },
+
 };
 </script>
 

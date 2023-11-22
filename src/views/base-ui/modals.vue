@@ -53,12 +53,7 @@ export default {
       this.modalShow31 = !this.modalShow31;
     }
   },
-  components: {
-    
-    
-    
-    CardHeader,
-  },
+
 };
 </script>
 

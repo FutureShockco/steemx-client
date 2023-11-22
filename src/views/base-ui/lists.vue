@@ -7,12 +7,7 @@ export default {
     return {
     };
   },
-  components: {
-    
-    
-    
-    CardHeader,
-  },
+
 };
 </script>
 
