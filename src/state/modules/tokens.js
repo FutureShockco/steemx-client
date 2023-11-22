@@ -1,5 +1,5 @@
 // import axios from "axios";
-// import ssc from '@/helpers/ssc';
+import ssc from '@/helpers/ssc';
 import ws from '@/helpers/kbyte';
 
 export const state = {
@@ -99,18 +99,18 @@ export const actions = {
         // });
         // commit('CHANGE_PRELOADER', 'disable');
 
-        // const steemCurrencies =[]
-        // ssc.find('tokens', 'tokens', { }, 1000, 0, [], (err, result) => {
-        //     console.log(err, result);
-        //     if(result)
-        //     result.forEach(element => {
-        //         element.full = element.name
-        //         element.name = element.symbol
-        //         steemCurrencies.push(element)
-        //     });
-        //     commit('SET_STEEMX_TOP', steemCurrencies);
+        const steemCurrencies =[]
+        ssc.find('tokens', 'tokens', { }, 1000, 0, [], (err, result) => {
+            console.log(err, result);
+            if(result)
+            result.forEach(element => {
+                element.full = element.name
+                element.name = element.symbol
+                steemCurrencies.push(element)
+            });
+            commit('SET_STEEMX_TOP', steemCurrencies);
 
-        // })
+        })
         // commit('SET_TOP', topCurrencies);
         commit('SET_LOADING', false);
     },

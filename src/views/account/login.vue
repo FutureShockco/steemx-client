@@ -1,8 +1,7 @@
 <script>
 import { required, email, helpers } from "@vuelidate/validators";
-import axios from 'axios';
 import sl from '@/helpers/steemlogin';
-
+import Swal from "sweetalert2";
 import { authMethods, notificationMethods } from "@/state/helpers";
 
 export default {
@@ -37,24 +36,27 @@ export default {
         async signinKeychain() {
             this.processing = true;
             const that = this;
+
             window.steem_keychain.requestSignBuffer(
                 that.username,
-                'hello',
+                'SteemX',
                 'Posting',
                 function (response) {
-                    console.log("main js response - verify key");
                     console.log(response);
                     if (!response.success) {
                         that.processing = false;
                         return that.authError = response.message;
                     }
                     else {
-                        localStorage.setItem('user', that.username);
-                        localStorage.setItem('login_type', "keychain");
-
-                        that.$router.push({
-                            path: '/'
-                        });
+                        that.login({ username: that.username, token: response.result, loginType: 'keychain' })
+                            .then(() => {
+                                that.success('You are successfully logged')
+                                
+                            })
+                            .catch(e => {
+                                that.error(e)
+                                console.error('Your access token is not valid', e);
+                            });
                     }
 
                 }
@@ -62,19 +64,34 @@ export default {
 
 
         },
-        async signinapi() {
-
-            this.processing = true;
-            const result = await axios.post('https://api-node.themesbrand.website/auth/signin', {
-                email: this.email,
-                password: this.password
-            });
-            if (result.data.status == 'errors') {
-                return this.authError = result.data.data;
-            }
-            localStorage.setItem('jwt', result.data.token);
-            this.$router.push({
-                path: '/'
+        timer() {
+            let timerInterval;
+            Swal.fire({
+                title: 'Auto close alert!',
+                html: 'I will close in <strong></strong> seconds.',
+                timer: 2000,
+                timerProgressBar: true,
+                showCloseButton: true,
+                didOpen: function () {
+                    Swal.showLoading();
+                    timerInterval = setInterval(function () {
+                        var content = Swal.getHtmlContainer();
+                        if (content) {
+                            var b = content.querySelector('b');
+                            if (b) {
+                                b.textContent = Swal.getTimerLeft();
+                            }
+                        }
+                    }, 100);
+                },
+                onClose: function () {
+                    clearInterval(timerInterval);
+                }
+            }).then(function (result) {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log('I was closed by the timer');
+                }
             });
         },
 
@@ -86,6 +103,9 @@ export default {
         window.addEventListener('load', () => {
             that.hasKeychain = window.steem_keychain !== undefined ? true : false;
         })
+        setInterval(() => {
+            that.error('oulala')
+        }, 3000);
     }
 };
 </script>

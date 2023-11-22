@@ -1,5 +1,5 @@
 <template>
-  <div>{{ accessToken }}</div>
+  <div></div>
 </template>
   
 <script>
@@ -14,11 +14,7 @@ export default {
     };
   },
   created() {
-    localStorage.setItem('access_token', this.accessToken);
-    localStorage.setItem('username', this.username);
-    localStorage.setItem('login_type', "steemlogin");
-    console.log(this.accessToken)
-    this.login(this.username, this.accessToken, 'steemlogin')
+    this.login({ username: this.username, token: this.accessToken, loginType: 'steemlogin' })
       .then(() => {
         window.location = '/';
       })

@@ -1,5 +1,4 @@
 // import client from '@/helpers/client';
-import sc from '@/helpers/steemlogin';
 import ws from '@/helpers/kbyte';
 
 export const state = {
@@ -47,39 +46,28 @@ export const actions = {
         console.log(state)
         dispatch('validate')
     },
-    login: async ({ commit }, { username, message, type }) =>
-        new Promise(resolve => {
-            if (type === 'steemlogin') {
-                const smessage = localStorage.getItem('access_token');
-                const suser = localStorage.getItem('username');
-                const stype = localStorage.getItem('login_type');
-                ws.requestAsync('login', { username: suser, message: smessage, type: stype }).then((result) => {
-                    console.log(result)
-                })
-                sc.me()
-                    .then(result => {
-                        commit('saveUsername', result.name);
-                        // loadaccount(commit, result.name);
-                        resolve();
-                    })
-                    .catch(e => {
-                        console.log(e);
-                        localStorage.removeItem('access_token');
-                        localStorage.removeItem('id_token');
-                        localStorage.removeItem('loggedIn');
-                        window.location = '/';
-                        resolve(e);
-                    });
-            } else if (type === 'keychain') {
-                console.log('no access token');
-                ws.requestAsync('login', { username, message, type }).then((result) => {
-                    console.log(result)
-                })
-                resolve();
+    login: async ({ commit }, payload) =>
+        new Promise((resolve, reject) => {
+            console.log('jeyyy', payload)
+            localStorage.removeItem('access_token');
+            if (payload.loginType) {
+                ws.requestAsync('login', payload).then((result) => {
+                    commit('saveUsername', payload.username);
+                    localStorage.setItem('access_token', result);
+                    localStorage.setItem('user', payload.username);
+                    window.location = '/';
+                    resolve()
+                }).catch(e => {
+                    console.log(e);
+                    localStorage.removeItem('access_token');
+                    localStorage.removeItem('user');
+                    reject(e);
+                });
             }
             else {
-                console.log('no access token');
-                resolve();
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('user');
+                reject();
             }
 
             // const ltype = localStorage.getItem('login_type');
