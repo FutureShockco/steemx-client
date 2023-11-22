@@ -1,7 +1,7 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header";
-import RightBar from "@/components/right-bar.vue";
+
+
+
 
 import { basicRangeAreaChart, comboChart } from "./data";
 
@@ -9,11 +9,7 @@ import { basicRangeAreaChart, comboChart } from "./data";
  * Mixed chart component
  */
 export default {
-  components: {
-    Layout,
-    PageHeader,
-    RightBar
-  },
+
   data() {
     return {
       basicRangeAreaChart: basicRangeAreaChart,

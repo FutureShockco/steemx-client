@@ -1,7 +1,5 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import RightBar from "@/components/right-bar.vue";
+
 import flatPickr from "vue-flatpickr-component";
 
 export default {
@@ -15,9 +13,9 @@ export default {
     };
   },
   components: {
-    Layout,
-    PageHeader,
-    RightBar,
+    
+    
+    
     flatPickr,
   },
 };

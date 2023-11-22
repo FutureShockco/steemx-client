@@ -1,7 +1,6 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header";
-import RightBar from "@/components/right-bar.vue";
+
+
 import { remixIcons } from "../../common/data";
 
 export default {
@@ -22,11 +21,7 @@ export default {
       ],
     };
   },
-  components: {
-    Layout,
-    PageHeader,
-    RightBar
-  },
+
   mounted() {
     this.remixIcons();
   },
@@ -53,7 +48,7 @@ export default {
       });
 
       // Use Vue's ref to access the target element
-        document.getElementById("icons").innerHTML = iconData;
+      document.getElementById("icons").innerHTML = iconData;
     }
   },
 };
@@ -63,14 +58,14 @@ export default {
   <Layout>
     <div class="page-title-box">
       <BRow class="align-items-center">
-          <BCol md="5">
-              <PageHeader title="Remix" pagetitle="Icons" />
-          </BCol>
-          <BCol md="auto" class="ms-auto">
-              <RightBar />
-          </BCol>
+        <BCol md="5">
+          <PageHeader title="Remix" pagetitle="Icons" />
+        </BCol>
+        <BCol md="auto" class="ms-auto">
+          <RightBar />
+        </BCol>
       </BRow>
-  </div>
+    </div>
     <BRow>
       <BCol cols={12} id="icons"></BCol>
     </BRow>

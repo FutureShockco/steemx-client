@@ -1,7 +1,5 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import RightBar from "@/components/right-bar.vue";
+
 
 import DropZone from "@/common/dropZone.vue";
 import { ref } from "vue";
@@ -47,9 +45,9 @@ export default {
     },
   },
   components: {
-    Layout,
-    PageHeader,
-    RightBar,
+    
+    
+    
     DropZone
   },
 };

@@ -1,10 +1,5 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import RightBar from "@/components/right-bar.vue";
-
 import img1 from "../../assets/images/small/img-1.jpg";
-
 import { Cropper, Preview } from 'vue-advanced-cropper';
 import 'vue-advanced-cropper/dist/style.css';
 
@@ -42,9 +37,6 @@ export default {
         },
     },
     components: {
-        Layout,
-        PageHeader,
-        RightBar,
         Cropper,
         Preview,
     },

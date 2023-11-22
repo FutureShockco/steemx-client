@@ -1,7 +1,4 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header";
-import RightBar from "@/components/right-bar.vue";
 
 import {
     treemapChart,
@@ -31,11 +28,7 @@ export default {
             ],
         };
     },
-    components: {
-        Layout,
-        PageHeader,
-    RightBar
-    },
+
 };
 </script>
 

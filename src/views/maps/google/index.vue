@@ -1,8 +1,6 @@
 <script>
 
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import RightBar from "@/components/right-bar.vue";
+
 
 import MarkerMap from "./markerMap.vue";
 import Overlays from "./overlays.vue";
@@ -14,7 +12,7 @@ import MapType from "./mapType.vue";
  */
 export default {
     components: {
-        Layout, PageHeader, RightBar, MarkerMap, Overlays, StreetView, MapType
+           MarkerMap, Overlays, StreetView, MapType
     },
     data() {
         return {

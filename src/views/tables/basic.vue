@@ -1,19 +1,3 @@
-<script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import CardHeader from "@/components/card-header.vue";
-import RightBar from "@/components/right-bar.vue";
-
-export default {
-    components: {
-        Layout,
-        PageHeader,
-        RightBar,
-        CardHeader
-    },
-};
-</script>
-
 <template>
     <Layout>
         <div class="page-title-box">

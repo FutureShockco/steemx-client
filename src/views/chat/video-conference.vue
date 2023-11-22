@@ -1,6 +1,6 @@
 <script>
-import Layout from "@/layouts";
-import RightBar from "@/components/right-bar.vue";
+
+
 
 import Slider from "@vueform/slider";
 import "@vueform/slider/themes/default.css";
@@ -234,8 +234,8 @@ export default {
     this.running = false;
   },
   components: {
-    Layout,
-    RightBar,
+    
+    
     Slider
   },
 };

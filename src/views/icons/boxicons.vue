@@ -1,7 +1,7 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header";
-import RightBar from "@/components/right-bar.vue";
+
+
+
 
 export default {
   data() {
@@ -19,11 +19,7 @@ export default {
       ],
     };
   },
-  components: {
-    Layout,
-    PageHeader,
-    RightBar
-  },
+
 };
 </script>
 

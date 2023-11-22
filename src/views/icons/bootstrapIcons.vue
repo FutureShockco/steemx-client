@@ -1,7 +1,7 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header";
-import RightBar from "@/components/right-bar.vue";
+
+
+
 import { bootstrapIcons } from "../../common/data";
 
 export default {
@@ -34,11 +34,7 @@ export default {
             document.getElementById("iconList").innerHTML = allIcons;
         }
     },
-    components: {
-        Layout,
-        PageHeader,
-        RightBar
-    },
+
 };
 </script>
 

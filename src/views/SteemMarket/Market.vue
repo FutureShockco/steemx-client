@@ -1,7 +1,5 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import RightBar from "@/components/right-bar.vue";
+
 
 import { coinChatData } from "@/common/data";
 
@@ -81,11 +79,7 @@ export default {
             this.coinChatData = this.coinChatData.filter((item) => item.id !== data.id);
         },
     },
-    components: {
-        Layout,
-        PageHeader,
-        RightBar,
-    },
+
 };
 </script>
 

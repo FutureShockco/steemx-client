@@ -1,7 +1,5 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import RightBar from "@/components/right-bar.vue";
+
 import flatPickr from "vue-flatpickr-component";
 import Multiselect from "@vueform/multiselect";
 import "@vueform/multiselect/themes/default.css";
@@ -196,9 +194,9 @@ export default {
 
   },
   components: {
-    Layout,
-    PageHeader,
-    RightBar,
+    
+    
+    
     flatPickr,
     Multiselect
   },

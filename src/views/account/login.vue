@@ -3,7 +3,7 @@ import { required, email, helpers } from "@vuelidate/validators";
 import axios from 'axios';
 import sl from '@/helpers/steemlogin';
 
-import { authMethods, authFackMethods, notificationMethods } from "@/state/helpers";
+import { authMethods, notificationMethods } from "@/state/helpers";
 
 export default {
     data() {
@@ -33,7 +33,6 @@ export default {
     },
     methods: {
         ...authMethods,
-        ...authFackMethods,
         ...notificationMethods,
         async signinKeychain() {
             this.processing = true;
@@ -77,63 +76,6 @@ export default {
             this.$router.push({
                 path: '/'
             });
-        },
-
-        // Try to log the user in with the username
-        // and password they provided.
-        tryToLogIn() {
-            this.processing = true;
-            this.submitted = true;
-            // stop here if form is invalid
-            this.$touch;
-
-            if (this.$invalid) {
-                return;
-            } else {
-                if (process.env.VUE_APP_DEFAULT_AUTH === "firebase") {
-                    this.tryingToLogIn = true;
-                    // Reset the authError if it existed.
-                    this.authError = null;
-                    return (
-                        this.logIn({
-                            email: this.email,
-                            password: this.password,
-                        })
-                            // eslint-disable-next-line no-unused-vars
-                            .then((token) => {
-                                this.tryingToLogIn = false;
-                                this.isAuthError = false;
-                                // Redirect to the originally requested page, or to the home page
-                                this.$router.push({
-                                    path: '/'
-                                });
-                            })
-                            .catch((error) => {
-                                this.tryingToLogIn = false;
-                                this.authError = error ? error : "";
-                                this.isAuthError = true;
-                                this.processing = false;
-                            })
-                    );
-                } else if (process.env.VUE_APP_DEFAULT_AUTH === "fakebackend") {
-                    const { email, password } = this;
-                    if (email && password) {
-                        this.login({
-                            email,
-                            password,
-                        });
-                    }
-                } else if (process.env.VUE_APP_DEFAULT_AUTH === "authapi") {
-                    axios
-                        .post("http://127.0.0.1:8000/api/login", {
-                            email: this.email,
-                            password: this.password,
-                        })
-                        .then((res) => {
-                            return res;
-                        });
-                }
-            }
         },
 
     },
@@ -209,7 +151,7 @@ export default {
                                         </div>
                                         <div class="p-2">
                                             <!-- <div class="p-2 mt-5"></div> -->
-                                            <form @submit.prevent="tryToLogIn">
+                                            <form @submit.prevent>
 
                                                 <div class="mb-3">
                                                     <label for="username" class="form-label">Account name <span

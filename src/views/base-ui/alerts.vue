@@ -1,8 +1,7 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import CardHeader from "@/components/card-header.vue";
-import RightBar from "@/components/right-bar.vue";
+
+
+
 
 export default {
   data() {
@@ -10,12 +9,7 @@ export default {
       dismissibleAlert: false
     };
   },
-  components: {
-    Layout,
-    PageHeader,
-    RightBar,
-    CardHeader
-  },
+
 };
 </script>
 

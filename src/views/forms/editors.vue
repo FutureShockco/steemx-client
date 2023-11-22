@@ -1,7 +1,5 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import RightBar from "@/components/right-bar.vue";
+
 
 import CKEditor from "@ckeditor/ckeditor5-vue";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -14,9 +12,9 @@ export default {
     };
   },
   components: {
-    Layout,
-    PageHeader,
-    RightBar,
+    
+    
+    
     ckeditor: CKEditor.component
   },
 };

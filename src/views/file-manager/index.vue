@@ -1,6 +1,6 @@
 <script>
-import Layout from "@/layouts";
-import RightBar from "@/components/right-bar.vue";
+
+
 import flatPickr from "vue-flatpickr-component";
 
 import { storageDetailsChart } from "./data";
@@ -201,8 +201,8 @@ export default {
     }
   },
   components: {
-    Layout,
-    RightBar,
+    
+    
     flatPickr
   },
 };

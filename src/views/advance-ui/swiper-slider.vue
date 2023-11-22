@@ -1,7 +1,5 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import RightBar from "@/components/right-bar.vue";
+
 
 import { Autoplay, Thumbs, Pagination, Navigation, EffectCoverflow, Mousewheel, Scrollbar, EffectFade, EffectFlip, EffectCreative } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -36,9 +34,6 @@ export default {
     };
   },
   components: {
-    Layout,
-    PageHeader,
-    RightBar,
     Swiper,
     SwiperSlide,
   },

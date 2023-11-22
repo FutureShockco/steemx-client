@@ -1,7 +1,7 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header";
-import RightBar from "@/components/right-bar.vue";
+
+
+
 
 import { basicColumnChart, columnDatalabelChart, stackedColumnsChart, columnStackedChart, columnMarkersChart, columnRotatedLabel, columnNegativeChart, rangeColumnChart, chartYearOption, quarterChartOption, distributedColumnchart, dynamicQuarterLoadedChart, columnGroupChart, groupedStackedChart, dumbbellChart } from "./data";
 
@@ -37,11 +37,7 @@ export default {
             dumbbellChart: dumbbellChart,
         };
     },
-    components: {
-        Layout,
-        PageHeader,
-    RightBar
-    },
+
 };
 </script>
 

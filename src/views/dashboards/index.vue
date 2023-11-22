@@ -1,7 +1,5 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import RightBar from "@/components/right-bar.vue";
+
 
 import { CountTo } from 'vue3-count-to';
 // import ssc from '@/helpers/ssc';
@@ -152,9 +150,9 @@ export default {
     }
   },
   components: {
-    Layout,
-    PageHeader,
-    RightBar,
+    
+    
+    
     CountTo
   },
 };

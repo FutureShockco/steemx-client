@@ -1,7 +1,5 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import RightBar from "@/components/right-bar.vue";
+
 import { SimpleBar } from "simplebar-vue3";
 import { layoutComputed } from "@/state/helpers";
 import { nextTick } from 'vue';
@@ -374,9 +372,9 @@ export default {
     },
   },
   components: {
-    Layout,
-    PageHeader,
-    RightBar,
+    
+    
+    
     SimpleBar,
     EmojiPicker
   }

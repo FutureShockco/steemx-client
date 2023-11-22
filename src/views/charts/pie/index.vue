@@ -1,7 +1,7 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header";
-import RightBar from "@/components/right-bar.vue";
+
+
+
 
 import {
     simplePieChart,
@@ -60,11 +60,7 @@ export default {
             this.updatingDonutChart.series = [44, 55, 13, 33];
         },
     },
-    components: {
-        Layout,
-        PageHeader,
-    RightBar
-    },
+
 };
 </script>
 

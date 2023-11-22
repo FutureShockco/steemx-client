@@ -1,8 +1,4 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import RightBar from "@/components/right-bar.vue";
-
 import * as Prism from 'prismjs';
 
 export default {
@@ -12,12 +8,7 @@ export default {
   },
   mounted(){
     Prism.highlightAll();
-  },
-  components: {
-    Layout,
-    PageHeader,
-    RightBar,
-  },
+  }
 };
 </script>
 

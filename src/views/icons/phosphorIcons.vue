@@ -1,7 +1,7 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header";
-import RightBar from "@/components/right-bar.vue";
+
+
+
 import { phosphorIcons } from "../../common/data";
 
 export default {
@@ -42,11 +42,7 @@ export default {
       this.loadIconList(filterData);
     }
   },
-  components: {
-    Layout,
-    PageHeader,
-    RightBar
-  },
+
 };
 </script>
 

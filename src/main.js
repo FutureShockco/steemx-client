@@ -3,6 +3,8 @@ import App from './App.vue';
 import router from './router';
 import store from "./state/store";
 import BootstrapVueNext from 'bootstrap-vue-next';
+import upperFirst from 'lodash/upperFirst';
+import camelCase from 'lodash/camelCase';
 import i18n from './i18n';
 import VueApexCharts from "vue3-apexcharts";
 import { vMaska } from "maska";
@@ -12,9 +14,11 @@ import './assets/scss/app.scss';
 import 'bootstrap-vue-next/dist/bootstrap-vue-next.css';
 import 'simplebar/dist/simplebar.min.css';
 
+
+
 setInterval(() => ws.request('heartbeat', null), 10 * 1000);
 
-createApp(App)
+const app = createApp(App)
     .use(router)
     .use(store)
     .use(BootstrapVueNext)
@@ -22,4 +26,12 @@ createApp(App)
     .use(VueApexCharts)
     .directive("maska", vMaska)
     .mixin(mixins)
-    .mount('#app');
+
+const requireComponent = require.context('./components', true, /[\w-]+\.vue$/);
+requireComponent.keys().forEach(fileName => {
+    const componentConfig = requireComponent(fileName);
+    const componentName = upperFirst(camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')));
+    app.component(componentName, componentConfig.default || componentConfig);
+});
+
+app.mount('#app');

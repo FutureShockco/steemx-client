@@ -1,7 +1,5 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import RightBar from "@/components/right-bar.vue";
+
 import { countrylist } from "@/common/data";
 
 const sampleCountryData = {
@@ -55,11 +53,7 @@ export default {
             });
         });
     },
-    components: {
-        Layout,
-        PageHeader,
-        RightBar,
-    },
+
 };
 </script>
 

@@ -1,8 +1,7 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import CardHeader from "@/components/card-header.vue";
-import RightBar from "@/components/right-bar.vue";
+
+
+
 import { ref } from "vue";
 import Img1 from "@/assets/images/small/img-1.jpg";
 import Img2 from "@/assets/images/small/img-2.jpg";
@@ -25,12 +24,7 @@ export default {
   },
   indicatorSlide: ref(0),
 
-  components: {
-    Layout,
-    PageHeader,
-    RightBar,
-    CardHeader
-  },
+
 };
 </script>
 

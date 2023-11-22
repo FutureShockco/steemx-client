@@ -1,6 +1,6 @@
 <script>
-import Layout from "@/layouts";
-import RightBar from "@/components/right-bar.vue";
+
+
 
 import Multiselect from "@vueform/multiselect";
 import "@vueform/multiselect/themes/default.css";
@@ -162,8 +162,8 @@ export default {
     //
   },
   components: {
-    Layout,
-    RightBar,
+    
+    
     ckeditor: CKEditor.component,
     Multiselect
   },

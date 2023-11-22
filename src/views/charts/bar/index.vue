@@ -1,7 +1,7 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header";
-import RightBar from "@/components/right-bar.vue";
+
+
+
 
 import { basicBarChart, customDatalabelsChart, stackedBarChart, stackedBar100Chart, barNegativeChart, barMarkersChart, reversedBarChart, patternedBarChart, groupedBarChart, barImagesChart } from "./data";
 
@@ -31,11 +31,7 @@ export default {
             barImagesChart: barImagesChart,
         };
     },
-    components: {
-        Layout,
-        PageHeader,
-        RightBar
-    },
+
 };
 </script>
 

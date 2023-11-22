@@ -1,7 +1,5 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import RightBar from "@/components/right-bar.vue";
+
 import Basic from "./basic.vue";
 import Mapline from "./mapline.vue";
 import Pacific from "./pacific.vue"
@@ -11,9 +9,9 @@ import Pacific from "./pacific.vue"
  */
 export default {
   components: {
-    Layout,
-    PageHeader,
-    RightBar,
+    
+    
+    
     Basic,
     Mapline,
     Pacific

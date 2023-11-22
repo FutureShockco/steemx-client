@@ -1,7 +1,5 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import RightBar from "@/components/right-bar.vue";
+
 import Swal from "sweetalert2";
 
 export default {
@@ -413,11 +411,7 @@ export default {
       });
     },
   },
-  components: {
-    Layout,
-    PageHeader,
-    RightBar,
-  },
+
 };
 </script>
 

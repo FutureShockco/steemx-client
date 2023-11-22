@@ -1,7 +1,5 @@
 <script>
-import Layout from "@/layouts";
-import PageHeader from "@/components/page-header.vue";
-import RightBar from "@/components/right-bar.vue";
+
 
 import moment from "moment";
 import "@fullcalendar/core";
@@ -284,9 +282,9 @@ export default {
         },
     },
     components: {
-        Layout,
-        PageHeader,
-        RightBar,
+        
+        
+        
         FullCalendar,
         flatPickr,
     },
