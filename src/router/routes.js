@@ -28,26 +28,7 @@ const routes = [
     meta: {
       title: "Login",
     },
-  },
-  {
-    path: "/register",
-    name: "Register",
-    component: () => import("../views/account/register"),
-    meta: {
-      title: "Register",
-      beforeResolve(routeTo, routeFrom, next) {
-        // If the user is already logged in
-        if (store.getters["auth/loggedIn"]) {
-          // Redirect to the home page instead
-          next({ name: "default" });
-        } else {
-          // Continue to the login page
-          next();
-        }
-      },
-    },
-  },
- 
+  }, 
   {
     path: "/logout",
     name: "logout",
@@ -57,8 +38,8 @@ const routes = [
   // Dashboards
   {
     path: "/",
-    name: "dashboard-crypto",
-    meta: { title: "Dashboard Crypto", authRequired: true },
+    name: "dashboard",
+    meta: { title: "Dashboard Crypto", authRequired: false },
     component: () => import("../views/dashboards"),
   },
 

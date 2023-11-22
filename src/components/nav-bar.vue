@@ -582,9 +582,9 @@ export default {
                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger"><span class="visually-hidden">unread messages</span></span>
                                 </div>
                                 <div>
-                                    <h6 class="mb-1 fs-sm user-name">Sophia Bethany</h6>
+                                    <h6 class="mb-1 fs-sm user-name">@hightouch</h6>
                                     <p class="mb-0 fw-medium fs-xs">
-                                        <BLink href="#!">sophia@steemx.com</BLink>
+                                        <BLink href="#!">View on Steemit</BLink>
                                     </p>
                                 </div>
                             </div>

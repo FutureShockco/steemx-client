@@ -13,24 +13,6 @@ import 'bootstrap-vue-next/dist/bootstrap-vue-next.css';
 import 'simplebar/dist/simplebar.min.css';
 
 setInterval(() => ws.request('heartbeat', null), 10 * 1000);
-// FakeBackend authentication
-// import { configureFakeBackend } from './helpers/fake-backend';
-// configureFakeBackend();
-
-
-// Firebase authentication
-// import { initFirebaseBackend } from './authUtils';
-
-// const firebaseConfig = {
-//     apiKey: process.env.VUE_APP_APIKEY,
-//     authDomain: process.env.VUE_APP_AUTHDOMAIN,
-//     databaseURL: process.env.VUE_APP_VUE_APP_DATABASEURL,
-//     projectId: process.env.VUE_APP_PROJECTId,
-//     storageBucket: process.env.VUE_APP_STORAGEBUCKET,
-//     messagingSenderId: process.env.VUE_APP_MEASUREMENTID
-// };
-
-// initFirebaseBackend(firebaseConfig);
 
 createApp(App)
     .use(router)

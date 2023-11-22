@@ -20,12 +20,11 @@ const router = createRouter({
 
 // API based Authentication
 // Before each route evaluates...
-router.beforeEach(async (routeTo, routeFrom, next) => {
+router.beforeEach( (routeTo, routeFrom, next) => {
   const authRequired = routeTo.matched.some((route) => route.meta.authRequired);
   if (!authRequired) return next();
-  const username = localStorage.getItem('username');
-
-  await client.database.getAccounts([username]).then((data) => {
+  const username = localStorage.getItem('username'); // for all requests
+  client.database.getAccounts([username]).then((data) => {
     const account = data[0]
     localStorage.setItem('userdata', JSON.stringify(account));
     localStorage.setItem('userid', account.id);
@@ -38,7 +37,7 @@ router.beforeEach(async (routeTo, routeFrom, next) => {
 
 router.beforeEach((routeTo, routeFrom, next) => {
 
-  const publicPages = ['/login', '/register', '/callback'];
+  const publicPages = ['/','/login', '/register', '/callback'];
   const authpage = !publicPages.includes(routeTo.path);
   const loggeduser = localStorage.getItem('user');
 
@@ -51,7 +50,12 @@ router.beforeEach((routeTo, routeFrom, next) => {
 });
 
 router.beforeResolve(async (routeTo, routeFrom, next) => {
-
+  // Create a `beforeResolve` hook, which fires whenever
+  // `beforeRouteEnter` and `beforeRouteUpdate` would. This
+  // allows us to ensure data is fetched even when params change,
+  // but the resolved route does not. We put it in `meta` to
+  // indicate that it's a hook we created, rather than part of
+  // Vue Router (yet?).
   try {
     // For each matched route...
     for (const route of routeTo.matched) {
