@@ -9,6 +9,7 @@ export const state = {
     steemHistory: null,
     currentTokenHistory: null,
     loading: null,
+    balances: []
 };
 
 export const mutations = {
@@ -29,6 +30,9 @@ export const mutations = {
     },
     SET_LOADING(state, loading) {
         state.loading = loading;
+    },
+    SET_BALANCE(state, payload) {
+        state.balances = payload;
     }
 };
 
@@ -99,19 +103,41 @@ export const actions = {
         // });
         // commit('CHANGE_PRELOADER', 'disable');
 
-        const steemCurrencies =[]
-        ssc.find('tokens', 'tokens', { }, 1000, 0, [], (err, result) => {
+        const steemCurrencies = []
+        ssc.find('tokens', 'tokens', {}, 1000, 0, [], (err, result) => {
             console.log(err, result);
-            if(result)
-            result.forEach(element => {
-                element.full = element.name
-                element.name = element.symbol
-                steemCurrencies.push(element)
-            });
+            if (result)
+                result.forEach(element => {
+                    element.full = element.name
+                    element.name = element.symbol
+                    steemCurrencies.push(element)
+                });
             commit('SET_STEEMX_TOP', steemCurrencies);
 
         })
-        // commit('SET_TOP', topCurrencies);
+        ssc.findOne('tokens', 'balances', {  }, (err, result) => {
+            console.log(err, result);
+
+
+        })
+
+        ssc.find(
+            'tokens',
+            'balances',
+            {
+                account: 'future.witness'
+            }, 1000, 0, [], (err, result) => {
+
+                console.log(err, result);
+                /*
+                {
+                        "account": "harpagon",
+                        "symbol": "SSC",
+                        "balance": 3.0005,
+                        "$loki": 6
+                    }
+                */
+            })
         commit('SET_LOADING', false);
     },
 };
