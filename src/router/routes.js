@@ -185,7 +185,7 @@ const routes = [
   {
     path: "/wallet",
     name: "profile",
-    meta: { title: "Wallet", authRequired: true },
+    meta: { title: "Wallet", authRequired: false },
     component: () => import("../views/profile/wallet"),
   },
   {
