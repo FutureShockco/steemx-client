@@ -15,7 +15,7 @@ export default {
         };
     },
     mounted() {
-        ws.requestAsync('get_deposit_address', { id: 475989928, currency: this.$route.params.coin }).then((result) => {
+        ws.requestAsync('get_deposit_address', { id: localStorage.getItem('userId'), currency: this.$route.params.coin }).then((result) => {
             if (result.data.length < 1) {
                 this.canDeposit = false
 

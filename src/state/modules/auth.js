@@ -120,6 +120,7 @@ export const actions = {
 
         ws.requestAsync('init', {token:token}).then((result) => {
             console.log(result)
+            localStorage.setItem('userId',result)
             return true
         })  
     },
