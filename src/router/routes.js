@@ -26,7 +26,7 @@ const routes = [
     name: 'callback',
     component: () => import("../views/Callback"),
     meta: {
-      title: "Login",
+      title: "Login", authRequired: false,
     },
   }, 
   {

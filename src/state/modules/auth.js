@@ -51,10 +51,11 @@ export const actions = {
             console.log('jeyyy', payload)
             localStorage.removeItem('access_token');
             if (payload.loginType) {
-                ws.requestAsync('login', payload).then((result) => {
+                ws.requestAsync('login', payload).then((token) => {
                     commit('saveUsername', payload.username);
-                    localStorage.setItem('access_token', result);
+                    localStorage.setItem('access_token', token);
                     localStorage.setItem('user', payload.username);
+
                     window.location = '/';
                     resolve()
                 }).catch(e => {
@@ -113,13 +114,14 @@ export const actions = {
             // })
         });
     },
-    validate({ commit, state }) {
-        if (!state.currentUser) return Promise.resolve(null)
-        const user = {};
+    validate() {
+        if (!localStorage.getItem('user')) return Promise.resolve(null)
+        const token = localStorage.getItem('access_token');
 
-        // const user = getFirebaseBackend().getAuthenticatedUser();
-        commit('SET_CURRENT_USER', user)
-        return user;
+        ws.requestAsync('init', {token:token}).then((result) => {
+            console.log(result)
+            return true
+        })  
     },
     // async requestKeychain(fn, ...args) {
     //     return new Promise((resolve) => {

@@ -121,23 +121,23 @@ export const actions = {
 
         })
 
-        ssc.find(
-            'tokens',
-            'balances',
-            {
-                account: 'future.witness'
-            }, 1000, 0, [], (err, result) => {
+        // ssc.find(
+        //     'tokens',
+        //     'balances',
+        //     {
+        //         account: 'future.witness'
+        //     }, 1000, 0, [], (err, result) => {
 
-                console.log(err, result);
-                /*
-                {
-                        "account": "harpagon",
-                        "symbol": "SSC",
-                        "balance": 3.0005,
-                        "$loki": 6
-                    }
-                */
-            })
+        //         console.log(err, result);
+        //         /*
+        //         {
+        //                 "account": "harpagon",
+        //                 "symbol": "SSC",
+        //                 "balance": 3.0005,
+        //                 "$loki": 6
+        //             }
+        //         */
+        //     })
         commit('SET_LOADING', false);
     },
 };

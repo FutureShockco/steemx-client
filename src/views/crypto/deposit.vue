@@ -2,7 +2,7 @@
 
 
 import { coinChatData } from "@/common/data";
-
+import ws from "@/helpers/kbyte"
 export default {
     data() {
         return {
@@ -10,51 +10,24 @@ export default {
             submitted: false,
             coinChatData: coinChatData,
             coin: this.$route.params.coin,
-            addresses: [
-            ]
+            addresses: null,
+            canDeposit: true
         };
     },
     mounted() {
-        const that = this;
-        setTimeout(() => {
-            that.addresses = [
-                {
-                    userId: 47391462,
-                    currency: 'btc',
-                    address: '0xcdad25ae94a490540b2d0b39743de7a92c39adc6',
-                    addressTag: '',
-                    chain: 'hbtc'
-                },
-                {
-                    userId: 47391462,
-                    currency: 'btc',
-                    address: '0xcdad25ae94a490540b2d0b39743de7a92c39adc6',
-                    addressTag: '',
-                    chain: 'hrc20btc'
-                },
-                {
-                    userId: 47391462,
-                    currency: 'btc',
-                    address: 'TKNX921hu7CoJYNHZ6WBrtgwcBMSoxs7qv',
-                    addressTag: '',
-                    chain: 'trc20btc'
-                },
-                {
-                    userId: 47391462,
-                    currency: 'btc',
-                    address: '0xcdad25ae94a490540b2d0b39743de7a92c39adc6',
-                    addressTag: '',
-                    chain: 'btt2btc'
-                },
-                {
-                    userId: 47391462,
-                    currency: 'btc',
-                    address: '1x2EJa9Fx8jwysdLdPKwxdbhjWjwQZPXk',
-                    addressTag: '',
-                    chain: 'btc'
-                }
-            ]
-        }, [700]);
+        ws.requestAsync('get_deposit_address', { id: 475989928, currency: this.$route.params.coin }).then((result) => {
+            if (result.data.length < 1) {
+                this.canDeposit = false
+
+            }
+            else {
+                this.canDeposit = true
+                this.addresses = result.data;
+
+            }
+        }).catch((e) => {
+            console.log(e)
+        })
     },
     methods: {
 
@@ -123,9 +96,14 @@ export default {
                             <button class="btn btn-primary">Show QR Code</button>
                         </div>
                     </BCardHeader>
-                    <BCardBody>
+                    <BCardBody v-if="canDeposit">
                         <div v-for="address in addresses" :key="address">
                             {{ address.chain }} - {{ address.address }}
+                        </div>
+                    </BCardBody>
+                    <BCardBody v-else>
+                        <div>
+                            Deposit for {{ $route.params.coin }} suspended
                         </div>
                     </BCardBody>
                 </BCard>

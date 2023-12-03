@@ -50,7 +50,7 @@ router.beforeEach((routeTo, routeFrom, next) => {
 
 router.beforeEach((routeTo, routeFrom, next) => {
 
-    const publicPages = ['/login', '/register', '/forgot-password'];
+    const publicPages = ['/','/login', '/register', '/callback'];
     const authpage = !publicPages.includes(routeTo.path);
     const loggeduser = localStorage.getItem('user');
 
