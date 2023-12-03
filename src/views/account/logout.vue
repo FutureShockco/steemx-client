@@ -2,6 +2,8 @@
 export default {
     mounted() {
         document.documentElement.setAttribute("data-bs-theme", this.$store.state.layout.mode);
+        localStorage.removeItem('user');
+        localStorage.removeItem('access_token');
     }
 };
 </script>
@@ -67,23 +69,25 @@ export default {
                                         </div>
                                         <div class="mt-4 pt-2 text-center">
                                             <h5 class="fs-2xl">You are Logged Out</h5>
-                                            <p class="text-muted">Thank you for using <span class="fw-semibold">steemx</span>
+                                            <p class="text-muted">Thank you for using <span
+                                                    class="fw-semibold">steemx</span>
                                                 admin template</p>
                                             <div class="mt-4">
                                                 <router-link to="/login" class="btn btn-primary w-100">Sign In</router-link>
                                             </div>
                                         </div>
-                                </BCardBody>
-                            </BCard>
-                        </BCol>
+                                    </BCardBody>
+                                </BCard>
+                            </BCol>
 
-                    </BRow>
+                        </BRow>
 
-                </BCard>
-            </BCol>
+                    </BCard>
+                </BCol>
 
-        </BRow>
+            </BRow>
 
-    </BContainer>
+        </BContainer>
 
-</section></template>
+    </section>
+</template>

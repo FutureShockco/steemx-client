@@ -121,6 +121,80 @@ export const actions = {
         commit('SET_CURRENT_USER', user)
         return user;
     },
+    // async requestKeychain(fn, ...args) {
+    //     return new Promise((resolve) => {
+    //       if (window.hive_keychain) {
+    //         window.hive_keychain[fn](...args, (r) => {
+    //           if (r.error === 'user_cancel') {
+    //             return resolve({ success: false, cancel: true, ...r });
+    //           }
+  
+    //           if (r.success) {
+    //             return resolve({ success: true, ...r });
+    //           }
+  
+    //           return resolve({ success: false, ...r });
+    //         });
+    //       } else {
+  
+    //         return resolve({ success: false });
+    //       }
+    //     });
+    //   },
+  
+    //   async requestBrodcastTransfer({ to, amount, currency, memo, eventName }) {
+    //     emitter.emit('broadcast-awaiting');
+  
+    //     const useStore = useUserStore();
+  
+    //     const { success, result } = await this.requestKeychain(
+    //       'requestTransfer',
+    //       useStore.username,
+    //       to,
+    //       amount,
+    //       memo,
+    //       currency,
+    //     );
+  
+    //     if (success) {
+    //       if (!result.id) {
+    //         result.id = result.tx_id;
+    //       }
+  
+
+    //     }
+  
+    //   },
+  
+    //   async requestBroadcastJson({ key = 'Active', id, message, json, eventName = null, eventData = null }) {
+    //     emitter.emit('broadcast-awaiting');
+  
+    //     const useStore = useUserStore();
+  
+    //     const { success, result } = await this.requestKeychain(
+    //       'requestCustomJson',
+    //       useStore.username,
+    //       id || "main-ssx",
+    //       key,
+    //       JSON.stringify(json),
+    //       message,
+    //     );
+  
+    //     if (success) {
+    //       if (!result.id) {
+    //         result.id = result.tx_id;
+    //       }
+  
+    //       const nTrx = json.length;
+  
+    //       const data = { ...result, ntrx: nTrx, eventData };
+  
+
+    //     }
+  
+
+    //   },
+  
 }
 
 

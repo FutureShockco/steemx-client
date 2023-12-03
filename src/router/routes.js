@@ -71,7 +71,7 @@ const routes = [
   {
     path: "/tokens",
     name: "tokens",
-    meta: { title: "Tokens", authRequired: true },
+    meta: { title: "Tokens", authRequired: false },
     component: () => import("../views/Tokens/Tokens"),
   },
   {
