@@ -146,6 +146,26 @@ export default {
         <BRow class="g-lg-4 g-3 mt-2">
           <BCol lg="4" md="4">
             <div>
+              <p class="text-muted text-uppercase fs-sm mb-1">Account ID</p>
+              <h6 class="mb-0 lh-base fs-md">{{ profile.id }}</h6>
+            </div>
+          </BCol>
+          <BCol lg="4" md="4">
+            <div>
+              <p class="text-muted text-uppercase fs-sm mb-1">Owner update</p>
+              <h6 class="mb-0 lh-base fs-md">{{ profile.last_owner_update }}</h6>
+            </div>
+          </BCol>
+          <BCol lg="4" md="4">
+            <div>
+              <p class="text-muted text-uppercase fs-sm mb-1">Account update</p>
+              <h6 class="mb-0 lh-base fs-md">{{ profile.last_account_update }}</h6>
+            </div>
+          </BCol>
+        </BRow>
+        <BRow class="g-lg-4 g-3 mt-2">
+          <BCol lg="4" md="4">
+            <div>
               <p class="text-muted text-uppercase fs-sm mb-1">Location</p>
               <h6 class="mb-0 lh-base fs-md">Somewhere</h6>
             </div>
@@ -168,6 +188,12 @@ export default {
               </h6>
             </div>
           </BCol>
+          <BCol lg="4" md="4">
+            <div>
+              <p class="text-muted text-uppercase fs-sm mb-1">Reputation</p>
+              <h6 class="mb-0 lh-base fs-md">{{ profile.reputation }}</h6>
+            </div>
+          </BCol>
         </BRow>
       </BCardBody>
     </BCard>
@@ -175,6 +201,225 @@ export default {
     <BCard no-body>
       <BCardBody>
         <div class="p-3 rounded">
+        <BRow class="pt-3">
+          <BCol lg="4">
+                <BCard no-body class="border">
+                  <BCardHeader>
+                    <p class="text-muted text-uppercase fs-sm mb-1">Wallet</p>
+                  </BCardHeader>
+                  <BCardBody>
+                    <ul class="list-unstyled vstack gap-3 mb-0">
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Balance:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.balance }}</h6>
+                        </div>
+                      </li>
+
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">SBD Balance:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.sbd_balance }}</h6>
+                        </div>
+                      </li>
+
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">SBD Interest:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.sbd_last_interest_payment }}</h6>
+                        </div>
+                      </li>
+
+                       <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Reward SBD Balance:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.reward_sbd_balance }}</h6>
+                        </div>
+                      </li>
+
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Reward STEEM Balance:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.reward_steem_balance }}</h6>
+                        </div>
+                      </li>
+                      
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Reward Vesting Balance:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.reward_vesting_balance }}</h6>
+                        </div>
+                      </li>
+
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Reward Vesting STEEM:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.reward_vesting_steem }}</h6>
+                        </div>
+                      </li>
+
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Vesting shares:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.vesting_shares }}</h6>
+                        </div>
+                      </li>
+
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Delegated vesting shares:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.delegated_vesting_shares }}</h6>
+                        </div>
+                      </li>
+
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Received vesting shares:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.received_vesting_shares }}</h6>
+                        </div>
+                      </li>
+
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Vesting withdraw rate:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.vesting_withdraw_rate }}</h6>
+                        </div>
+                      </li>
+
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Next withdrawal:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.next_vesting_withdrawal }}</h6>
+                        </div>
+                      </li>
+
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Withdrawn:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.withdrawn }}</h6>
+                        </div>
+                      </li>
+
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">To withdraw:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.to_withdraw }}</h6>
+                        </div>
+                      </li>
+
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Vesting balance:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.vesting_balance }}</h6>
+                        </div>
+                      </li>
+                    </ul>
+                  </BCardBody>
+                </BCard>
+          </BCol>
+          <BCol lg="4">
+                <BCard no-body class="border">
+                  <BCardHeader>
+                    <p class="text-muted text-uppercase fs-sm mb-1">Savings</p>
+                  </BCardHeader>
+                  <BCardBody>
+                    <ul class="list-unstyled vstack gap-3 mb-0">
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Savings balance:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.savings_balance }}</h6>
+                        </div>
+                      </li>
+
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Savings SBD balance:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.savings_sbd_balance }}</h6>
+                        </div>
+                      </li>
+
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Savings SBD seconds:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.savings_sbd_seconds }}</h6>
+                        </div>
+                      </li>
+
+                       <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Savings SBD update:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.savings_sbd_seconds_last_update }}</h6>
+                        </div>
+                      </li>
+
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Savings SBD payment:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.savings_sbd_last_interest_payment }}</h6>
+                        </div>
+                      </li>
+                      
+                      <li class="d-flex align-items-center gap-2 position-relative">
+                        <div class="flex-grow-1">
+                        <h6 class="fs-sm mb-0">Savings withdraw requests:</h6>
+                        </div>
+                        <div class="text-end flex-shrink-0">
+                        <h6 class="fs-sm mb-0">{{ profile.savings_withdraw_requests }}</h6>
+                        </div>
+                      </li>
+                    </ul>
+                  </BCardBody>
+                </BCard>
+          </BCol>
+          <BCol lg="4">
+                <BCard no-body class="border">
+                  <BCardBody>
+                    <p class="text-muted text-uppercase fs-sm mb-1">Stacking</p>
+                    
+                  </BCardBody>
+                </BCard>
+          </BCol>
+        </BRow>
           <BRow>
             <BCol lg="4">
               <BCard
