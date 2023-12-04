@@ -1,9 +1,14 @@
 <script>
-
-
+import Modal from '@/components/modal.vue'
 import { coinChatData } from "@/common/data";
 import ws from "@/helpers/kbyte"
+import QrcodeVue from 'qrcode.vue';
+
 export default {
+    components:{
+        Modal,
+        QrcodeVue,
+    },
     data() {
         return {
             msg: "",
@@ -11,7 +16,8 @@ export default {
             coinChatData: coinChatData,
             coin: this.$route.params.coin,
             addresses: null,
-            canDeposit: true
+            canDeposit: true,
+            showModal: false
         };
     },
     mounted() {
@@ -70,6 +76,9 @@ export default {
     },
 
 };
+
+
+
 </script>
 
 <template>
@@ -90,15 +99,48 @@ export default {
                     <BCardHeader class="d-flex align-items-center gap-2">
                         <div class="flex-grow-1">
                             <BCardTitle tag="h5" class="mb-1">{{ coin }}</BCardTitle>
-                            <p class="text-muted mb-0">Deposit time depend on our partner exchange.</p>
-                        </div>
-                        <div class="flex-shrink-0 hstack gap-2">
+        <!-- <h2>{{ coin }}</h2> -->
+        <!-- Burak -->
+        <img src="@/assets/images/svg/crypto-icons/btc.svg" alt="" class="avatar-sm" >  
+    <select v-model="selected" style="width:500px;height:45px ;margin-left:10px">
+    <option disabled value="">{{ coin }}</option>
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
+  <!-- <span>Selected: {{ selected }}</span> -->
+ 
+<!-- Box -->
+<div class="box">
+    <h2>Deposit Details</h2>
+    <p class="text-muted mb-0">Deposit time depend on our partner exchange.</p>
+     <!-- QR Code Image from URL -->
+    <div class="text-right mt-2">
+        <qrcode-vue value="HELLOWORLD" size="350" level="H" class="qr-code-image" id="show-modal" @click="showModal = true"/>
+    
+    <Teleport to="body">
+    <!-- use the modal component, pass in the prop -->
+    <modal :show="showModal" @close="showModal = false">
+      <template #header>
+        <h3></h3>
+      </template>
+    </modal>
+  </Teleport>
+
+  </div>
+  </div>
+  <!-- Box END-->
+</div>
+
+                      
+                        <!-- <div class="flex-shrink-0 hstack gap-2">
                             <button class="btn btn-primary">Show QR Code</button>
-                        </div>
+                        </div> -->
                     </BCardHeader>
                     <BCardBody v-if="canDeposit">
                         <div v-for="address in addresses" :key="address">
                             {{ address.chain }} - {{ address.address }}
+                            
                         </div>
                     </BCardBody>
                     <BCardBody v-else>
@@ -134,3 +176,23 @@ export default {
         </BRow>
     </Layout>
 </template>
+
+
+<style lang="scss" scoped>
+
+
+.box {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 20px;
+  background-color: 10 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.qr-code-image {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+  /* Add any additional styles for your QR code image */
+}
+</style>
