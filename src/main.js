@@ -13,7 +13,7 @@ import ws from '@/helpers/kbyte';
 import './assets/scss/app.scss';
 import 'bootstrap-vue-next/dist/bootstrap-vue-next.css';
 import 'simplebar/dist/simplebar.min.css';
-
+import QrcodeVue from 'qrcode.vue';
 
 
 setInterval(() => ws.request('heartbeat', null), 10 * 1000);
@@ -24,8 +24,10 @@ const app = createApp(App)
     .use(BootstrapVueNext)
     .use(i18n)
     .use(VueApexCharts)
+    .use(QrcodeVue)
     .directive("maska", vMaska)
     .mixin(mixins)
+    
 
 const requireComponent = require.context('./components', true, /[\w-]+\.vue$/);
 requireComponent.keys().forEach(fileName => {

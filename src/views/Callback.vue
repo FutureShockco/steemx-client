@@ -13,7 +13,8 @@ export default {
       error: null,
     };
   },
-  created() {
+  mounted() {
+    console.log(this.username,this.accessToken)
     this.login({ username: this.username, token: this.accessToken, loginType: 'steemlogin' })
       .then(() => {
         window.location = '/';

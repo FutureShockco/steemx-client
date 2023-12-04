@@ -51,10 +51,11 @@ export const actions = {
             console.log('jeyyy', payload)
             localStorage.removeItem('access_token');
             if (payload.loginType) {
-                ws.requestAsync('login', payload).then((result) => {
+                ws.requestAsync('login', payload).then((token) => {
                     commit('saveUsername', payload.username);
-                    localStorage.setItem('access_token', result);
+                    localStorage.setItem('access_token', token);
                     localStorage.setItem('user', payload.username);
+
                     window.location = '/';
                     resolve()
                 }).catch(e => {
@@ -113,14 +114,90 @@ export const actions = {
             // })
         });
     },
-    validate({ commit, state }) {
-        if (!state.currentUser) return Promise.resolve(null)
-        const user = {};
+    validate() {
+        if (!localStorage.getItem('user')) return Promise.resolve(null)
+        const token = localStorage.getItem('access_token');
 
-        // const user = getFirebaseBackend().getAuthenticatedUser();
-        commit('SET_CURRENT_USER', user)
-        return user;
+        ws.requestAsync('init', {token:token}).then((result) => {
+            console.log(result)
+            localStorage.setItem('userId',result)
+            return true
+        })  
     },
+    // async requestKeychain(fn, ...args) {
+    //     return new Promise((resolve) => {
+    //       if (window.hive_keychain) {
+    //         window.hive_keychain[fn](...args, (r) => {
+    //           if (r.error === 'user_cancel') {
+    //             return resolve({ success: false, cancel: true, ...r });
+    //           }
+  
+    //           if (r.success) {
+    //             return resolve({ success: true, ...r });
+    //           }
+  
+    //           return resolve({ success: false, ...r });
+    //         });
+    //       } else {
+  
+    //         return resolve({ success: false });
+    //       }
+    //     });
+    //   },
+  
+    //   async requestBrodcastTransfer({ to, amount, currency, memo, eventName }) {
+    //     emitter.emit('broadcast-awaiting');
+  
+    //     const useStore = useUserStore();
+  
+    //     const { success, result } = await this.requestKeychain(
+    //       'requestTransfer',
+    //       useStore.username,
+    //       to,
+    //       amount,
+    //       memo,
+    //       currency,
+    //     );
+  
+    //     if (success) {
+    //       if (!result.id) {
+    //         result.id = result.tx_id;
+    //       }
+  
+
+    //     }
+  
+    //   },
+  
+    //   async requestBroadcastJson({ key = 'Active', id, message, json, eventName = null, eventData = null }) {
+    //     emitter.emit('broadcast-awaiting');
+  
+    //     const useStore = useUserStore();
+  
+    //     const { success, result } = await this.requestKeychain(
+    //       'requestCustomJson',
+    //       useStore.username,
+    //       id || "main-ssx",
+    //       key,
+    //       JSON.stringify(json),
+    //       message,
+    //     );
+  
+    //     if (success) {
+    //       if (!result.id) {
+    //         result.id = result.tx_id;
+    //       }
+  
+    //       const nTrx = json.length;
+  
+    //       const data = { ...result, ntrx: nTrx, eventData };
+  
+
+    //     }
+  
+
+    //   },
+  
 }
 
 

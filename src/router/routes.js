@@ -26,7 +26,7 @@ const routes = [
     name: 'callback',
     component: () => import("../views/Callback"),
     meta: {
-      title: "Login",
+      title: "Login", authRequired: false,
     },
   }, 
   {
@@ -71,7 +71,7 @@ const routes = [
   {
     path: "/tokens",
     name: "tokens",
-    meta: { title: "Tokens", authRequired: true },
+    meta: { title: "Tokens", authRequired: false },
     component: () => import("../views/Tokens/Tokens"),
   },
   {

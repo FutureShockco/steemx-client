@@ -5,7 +5,7 @@
 <script>
 
 
-import { cryptoApiMethods } from "@/state/helpers";
+import { cryptoApiMethods, authMethods } from "@/state/helpers";
 
 export default {
   name: 'App',
@@ -18,6 +18,7 @@ export default {
   components: {
   },
   mounted() {
+    this.init()
     this.loadTokens()
     setInterval(() => {
       this.loadTokens()
@@ -25,7 +26,8 @@ export default {
 
   },
   methods: {
-    ...cryptoApiMethods
+    ...cryptoApiMethods,
+    ...authMethods
   },
 
 };
