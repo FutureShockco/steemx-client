@@ -150,9 +150,6 @@ export default {
     }
   },
   components: {
-    
-    
-    
     CountTo
   },
 };

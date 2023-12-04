@@ -50,9 +50,13 @@ router.beforeEach((routeTo, routeFrom, next) => {
 
 router.beforeEach((routeTo, routeFrom, next) => {
 
-    const publicPages = ['/','/login', '/register', '/callback'];
-    const authpage = !publicPages.includes(routeTo.path);
-    const loggeduser = localStorage.getItem('user');
+  const publicPages = ['/','/login', '/register', '/callback', '/wallet'];
+  const authpage = !publicPages.includes(routeTo.path);
+  const loggeduser = localStorage.getItem('user');
+
+  if (authpage && !loggeduser) {
+    return next('/login');
+  }
 
     if (authpage && !loggeduser) {
       return next('/login');

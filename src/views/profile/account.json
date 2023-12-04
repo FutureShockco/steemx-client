@@ -1,0 +1,149 @@
+{
+    "id": 1260583,
+    "name": "future.witness",
+    "owner": {
+        "weight_threshold": 1,
+        "account_auths": [],
+        "key_auths": [
+            [
+                "STM8Frkex7tnP16MWWrLoPQCQN5EWQ8QpvfFUaDi35bCeEyfweTVr",
+                1
+            ]
+        ]
+    },
+    "active": {
+        "weight_threshold": 1,
+        "account_auths": [],
+        "key_auths": [
+            [
+                "STM7PnidpJksfSzLtgQJsEgRT9LdpGpbraTay6UDN4DXWTSp4ypAh",
+                1
+            ]
+        ]
+    },
+    "posting": {
+        "weight_threshold": 1,
+        "account_auths": [
+            [
+                "busy.app",
+                1
+            ],
+            [
+                "futureshock",
+                1
+            ],
+            [
+                "mimeebot",
+                1
+            ]
+        ],
+        "key_auths": [
+            [
+                "STM5AGVQ8SJQ3nxjUZCugRej7mTPRjZeUGXkuvbrY4ejW8iBdDYEq",
+                1
+            ]
+        ]
+    },
+    "memo_key": "STM6BMc7CfFbE2sXxFCEwQgoXRU6YRSqeYHJwComi7G7epcDebAj6",
+    "json_metadata": "{}",
+    "posting_json_metadata": "{\"profile\":{\"profile_image\":\"https://cdn.steemitimages.com/DQmcrPyLLvAJDquncZacJEKFGDUNxaZ8asdbADc7sAQJ2aa/wt.jpg\",\"version\":2,\"name\":\"FutureShock Witness\",\"about\":\"The future is yours!\",\"website\":\"https://steemit.com/steemit/@futureshock/futureshock-and-steem-the-future-is-yours\"}}",
+    "proxy": "",
+    "last_owner_update": "1970-01-01T00:00:00",
+    "last_account_update": "2023-07-01T10:18:51",
+    "created": "2019-04-19T19:56:21",
+    "mined": false,
+    "recovery_account": "hightouch",
+    "last_account_recovery": "1970-01-01T00:00:00",
+    "reset_account": "null",
+    "comment_count": 0,
+    "lifetime_vote_count": 0,
+    "post_count": 548,
+    "can_vote": true,
+    "voting_manabar": {
+        "current_mana": "249343169794836",
+        "last_update_time": 1701549003
+    },
+    "downvote_manabar": {
+        "current_mana": "64152082845508",
+        "last_update_time": 1701549003
+    },
+    "voting_power": 9524,
+    "balance": "33.685 STEEM",
+    "savings_balance": "0.000 STEEM",
+    "sbd_balance": "4.925 SBD",
+    "sbd_seconds": "0",
+    "sbd_seconds_last_update": "2023-11-30T09:51:36",
+    "sbd_last_interest_payment": "2023-11-30T09:51:36",
+    "savings_sbd_balance": "0.000 SBD",
+    "savings_sbd_seconds": "0",
+    "savings_sbd_seconds_last_update": "1970-01-01T00:00:00",
+    "savings_sbd_last_interest_payment": "1970-01-01T00:00:00",
+    "savings_withdraw_requests": 0,
+    "reward_sbd_balance": "0.011 SBD",
+    "reward_steem_balance": "7.373 STEEM",
+    "reward_vesting_balance": "87009.299841 VESTS",
+    "reward_vesting_steem": "50.006 STEEM",
+    "vesting_shares": "321166965.223768 VESTS",
+    "delegated_vesting_shares": "64558633.841734 VESTS",
+    "received_vesting_shares": "0.000000 VESTS",
+    "vesting_withdraw_rate": "0.000000 VESTS",
+    "next_vesting_withdrawal": "1969-12-31T23:59:59",
+    "withdrawn": 0,
+    "to_withdraw": 0,
+    "withdraw_routes": 0,
+    "curation_rewards": 12375674,
+    "posting_rewards": 52526,
+    "proxied_vsf_votes": [
+        "9623140992491",
+        "391862626653",
+        0,
+        0
+    ],
+    "witnesses_voted_for": 30,
+    "last_post": "2023-12-02T00:00:15",
+    "last_root_post": "2023-12-02T00:00:15",
+    "last_vote_time": "2023-12-02T18:11:18",
+    "post_bandwidth": 0,
+    "pending_claimed_accounts": 83,
+    "vesting_balance": "0.000 STEEM",
+    "reputation": "66939830127694",
+    "transfer_history": [],
+    "market_history": [],
+    "post_history": [],
+    "vote_history": [],
+    "other_history": [],
+    "witness_votes": [
+        "ayogom",
+        "bangla.witness",
+        "boylikegirl.wit",
+        "cotina",
+        "dev.supporters",
+        "dlike",
+        "earn.steem",
+        "etainclub",
+        "ety001",
+        "exnihilo.witness",
+        "future.witness",
+        "hinomaru-jp",
+        "inwi",
+        "italygame",
+        "justyy",
+        "maiyude",
+        "marcosdk",
+        "pennsif.witness",
+        "rlawlstn123",
+        "roadofrich",
+        "seven.wit",
+        "smt-wherein",
+        "starlord28",
+        "steem-agora",
+        "steemchiller",
+        "steemwow",
+        "successgr.with",
+        "symbionts",
+        "time.foundation",
+        "upvu.witness"
+    ],
+    "tags_usage": [],
+    "guest_bloggers": []
+}
