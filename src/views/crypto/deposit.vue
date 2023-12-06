@@ -48,6 +48,19 @@ export default {
 
       return `${formattedHours}:${formattedMinutes} ${ampm}`;
     },
+    // copyToClipboard
+    copyToClipboard(text) {
+    const input = document.createElement('textarea');
+    input.style.position = 'fixed';
+    input.style.opacity = '0';
+    input.value = text;
+    document.body.appendChild(input);
+    input.focus();
+    input.select();
+    document.body.removeChild(input);
+    alert('Address copied!');
+  },
+
 
     // Chat
     sendMsg() {
@@ -141,9 +154,17 @@ export default {
                   </Teleport>
                 </div>
                 <BCardBody v-if="canDeposit">
+                  <h2>Address Details</h2>
                   <div v-for="address in addresses" :key="address">
                     {{ address.chain }} - {{ address.address }}
+                    <button
+                  class="btn btn-primary btn-sm"
+                  @click="copyToClipboard(address.address)"
+                >
+                  Copy
+                </button>
                   </div>
+                  
                 </BCardBody>
                 <BCardBody v-else>
                   <div>Deposit for {{ $route.params.coin }} suspended</div>
