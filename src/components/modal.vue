@@ -1,7 +1,13 @@
 <script>
 export default {
   props: {
-    show: Boolean
+    show: Boolean,
+    value: String 
+},
+  computed: {
+    qrCodeContent() {
+      return this.value; // Use the prop value for generating the QR code
+    }
   }
 }
 </script>
@@ -15,10 +21,9 @@ export default {
         </div>
         <button
               class="modal-default-button"
-              @click="$emit('close')"
-            >x</button>
+              @click="$emit('close')" >x</button>
         <div class="modal-body">
-            <qrcode-vue value="hello" size="350" level="H"/>
+            <qrcode-vue :value="get_deposit_address" size="350" level="H"/>
         </div>
 
         <div class="modal-footer">
