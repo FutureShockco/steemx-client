@@ -2,7 +2,6 @@
 
 
 import { CountTo } from 'vue3-count-to';
-import client from '@/helpers/client';
 
 export default {
     data() {
@@ -10,7 +9,7 @@ export default {
             page: 1,
             perPage: 5,
             pages: [],
-            profile: null,
+            profile: this.$store.state.auth.account || null,
             walletTable: [
                 {
                     id: 1,
@@ -37,17 +36,7 @@ export default {
     },
     created() {
         this.setPages();
-        client.database.getAccounts(['hightouch']).then((account) => {
-            let metaData
-            try {
-                metaData = JSON.parse(account[0].posting_json_metadata)
-                
-                } catch (error) {
-                console.log(error)
-            } 
-            account[0].metaData = metaData
-         this.profile = account[0]
-        })
+
     },
     methods: {
         setPages() {

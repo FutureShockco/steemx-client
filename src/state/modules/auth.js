@@ -1,8 +1,9 @@
-// import client from '@/helpers/client';
 import ws from '@/helpers/kbyte';
+import client from '@/helpers/client';
 
 export const state = {
     currentUser: sessionStorage.getItem('authUser'),
+    account: null,
 }
 
 export const mutations = {
@@ -15,8 +16,6 @@ export const mutations = {
     },
     saveAccount(_state, payload) {
         _state.account = payload
-        state.currentUser = payload
-        saveState('auth.currentUser', payload)
     },
     logout(_state) {
         _state.username = null
@@ -42,13 +41,23 @@ export const actions = {
     // This is automatically run in `src/state/store.js` when the app
     // starts, along with any other actions named `init` in other modules.
     // eslint-disable-next-line no-unused-vars
-    init({ state, dispatch }) {
+    init({ commit, state, dispatch }) {
+        client.database.getAccounts(['hightouch']).then((account) => {
+            let metaData
+            try {
+                metaData = JSON.parse(account[0].posting_json_metadata)
+
+            } catch (error) {
+                console.log(error)
+            }
+            account[0].metaData = metaData
+            commit('saveAccount',  account[0]);
+        })
         console.log(state)
         dispatch('validate')
     },
     login: async ({ commit }, payload) =>
         new Promise((resolve, reject) => {
-            console.log('jeyyy', payload)
             localStorage.removeItem('access_token');
             if (payload.loginType) {
                 ws.requestAsync('login', payload).then((token) => {
@@ -118,11 +127,11 @@ export const actions = {
         if (!localStorage.getItem('user')) return Promise.resolve(null)
         const token = localStorage.getItem('access_token');
 
-        ws.requestAsync('init', {token:token}).then((result) => {
+        ws.requestAsync('init', { token: token }).then((result) => {
             console.log(result)
-            localStorage.setItem('userId',result)
+            localStorage.setItem('userId', result)
             return true
-        })  
+        })
     },
     // async requestKeychain(fn, ...args) {
     //     return new Promise((resolve) => {
@@ -131,25 +140,25 @@ export const actions = {
     //           if (r.error === 'user_cancel') {
     //             return resolve({ success: false, cancel: true, ...r });
     //           }
-  
+
     //           if (r.success) {
     //             return resolve({ success: true, ...r });
     //           }
-  
+
     //           return resolve({ success: false, ...r });
     //         });
     //       } else {
-  
+
     //         return resolve({ success: false });
     //       }
     //     });
     //   },
-  
+
     //   async requestBrodcastTransfer({ to, amount, currency, memo, eventName }) {
     //     emitter.emit('broadcast-awaiting');
-  
+
     //     const useStore = useUserStore();
-  
+
     //     const { success, result } = await this.requestKeychain(
     //       'requestTransfer',
     //       useStore.username,
@@ -158,22 +167,22 @@ export const actions = {
     //       memo,
     //       currency,
     //     );
-  
+
     //     if (success) {
     //       if (!result.id) {
     //         result.id = result.tx_id;
     //       }
-  
+
 
     //     }
-  
+
     //   },
-  
+
     //   async requestBroadcastJson({ key = 'Active', id, message, json, eventName = null, eventData = null }) {
     //     emitter.emit('broadcast-awaiting');
-  
+
     //     const useStore = useUserStore();
-  
+
     //     const { success, result } = await this.requestKeychain(
     //       'requestCustomJson',
     //       useStore.username,
@@ -182,22 +191,22 @@ export const actions = {
     //       JSON.stringify(json),
     //       message,
     //     );
-  
+
     //     if (success) {
     //       if (!result.id) {
     //         result.id = result.tx_id;
     //       }
-  
+
     //       const nTrx = json.length;
-  
+
     //       const data = { ...result, ntrx: nTrx, eventData };
-  
+
 
     //     }
-  
+
 
     //   },
-  
+
 }
 
 
