@@ -103,14 +103,13 @@ export default {
         </BCol>
       </BRow>
     </div>
+
     <BRow>
       <BCol lg="12">
         <BCard no-body>
           <BCardHeader class="d-flex align-items-center gap-2">
             <div class="flex-grow-1">
               <BCardTitle tag="h5" class="mb-1">{{ coin }}</BCardTitle>
-              <!-- <h2>{{ coin }}</h2> -->
-              <!-- Burak -->
               <img
                 src="@/assets/images/svg/crypto-icons/btc.svg"
                 alt=""
@@ -118,14 +117,12 @@ export default {
               />
               <select
                 v-model="selected"
-                style="width: 500px; height: 45px; margin-left: 10px"
-              >
+                style="width: 500px; height: 45px; margin-left: 10px">
                 <option disabled value="">{{ coin }}</option>
                 <option>A</option>
                 <option>B</option>
                 <option>C</option>
               </select>
-              <!-- <span>Selected: {{ selected }}</span> -->
 
               <!-- Box -->
               <div class="box">
@@ -142,8 +139,7 @@ export default {
                     class="qr-code-image"
                     id="show-modal"
                     @click="showModal = true"
-                  />
-
+                  />  
                   <Teleport to="body">
                     <!-- use the modal component, pass in the prop -->
                     <modal :show="showModal" @close="showModal = false">
@@ -159,26 +155,25 @@ export default {
                     {{ address.chain }} - {{ address.address }}
                     <button
                   class="btn btn-primary btn-sm"
-                  @click="copyToClipboard(address.address)"
-                >
+                  @click="copyToClipboard(address.address)">
                   Copy
                 </button>
                   </div>
-                  
                 </BCardBody>
                 <BCardBody v-else>
-                  <div>Deposit for {{ $route.params.coin }} suspended</div>
+                <div>Deposit for {{ $route.params.coin }} suspended</div>
                 </BCardBody>
               </div>
-              <!-- Box END-->
             </div>
-
-            <!-- <div class="flex-shrink-0 hstack gap-2">
-                            <button class="btn btn-primary">Show QR Code</button>
-                        </div> -->
           </BCardHeader>
         </BCard>
       </BCol>
+    </BRow>
+  </Layout>
+</template>
+   <!-- <div class="flex-shrink-0 hstack gap-2">
+                            <button class="btn btn-primary">Show QR Code</button>
+                        </div> -->
 
       <!-- <BCol lg="3">
                 <BCard no-body>
@@ -202,9 +197,7 @@ export default {
                 </BCard>
 
             </BCol> -->
-    </BRow>
-  </Layout>
-</template>
+   
 
 
 <style lang="scss" scoped>
