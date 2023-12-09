@@ -105,8 +105,8 @@ export default {
     </div>
 
     <BRow>
-      <BCol lg="12">
-        <BCard no-body>
+      <BCol lg="6">
+          <BCard no-body>
           <BCardHeader class="d-flex align-items-center gap-2">
             <div class="flex-grow-1">
               <BCardTitle tag="h5" class="mb-1">{{ coin }}</BCardTitle>
@@ -123,9 +123,12 @@ export default {
                 <option>B</option>
                 <option>C</option>
               </select>
+            </div>
+          </BCardHeader>
 
               <!-- Box -->
               <div class="box">
+                <div class="deposit-details">
                 <h2>Deposit Details</h2>
                 <p class="text-muted mb-0">
                   Deposit time depend on our partner exchange.
@@ -149,6 +152,15 @@ export default {
                     </modal>
                   </Teleport>
                 </div>
+              </div>
+            </div>
+              </BCard>
+        </BCol>
+
+        <BCol lg="6">
+          <BCard no-body>
+            <div class="box">
+              <div class="address-details">
                 <BCardBody v-if="canDeposit">
                   <h2>Address Details</h2>
                   <div v-for="address in addresses" :key="address">
@@ -165,7 +177,7 @@ export default {
                 </BCardBody>
               </div>
             </div>
-          </BCardHeader>
+          
         </BCard>
       </BCol>
     </BRow>
