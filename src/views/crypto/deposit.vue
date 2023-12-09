@@ -18,6 +18,7 @@ export default {
       addresses: null,
       canDeposit: true,
       showModal: false,
+      get_deposit_address: "",
     };
   },
   mounted() {
@@ -31,7 +32,7 @@ export default {
         } else {
           this.canDeposit = true;
           this.addresses = result.data;
-        }
+          this.get_deposit_address = result.data[0].address;                  }
       })
       .catch((e) => {
         console.log(e);
@@ -47,6 +48,18 @@ export default {
       const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
 
       return `${formattedHours}:${formattedMinutes} ${ampm}`;
+    },
+    // copyToClipboard
+    copyToClipboard(text) {
+      const input = document.createElement("textarea");
+      input.style.position = "fixed";
+      input.style.opacity = "0";
+      input.value = text;
+      document.body.appendChild(input);
+      input.focus();
+      input.select();
+      document.body.removeChild(input);
+      alert("Address copied!");
     },
 
     // Chat
@@ -90,14 +103,13 @@ export default {
         </BCol>
       </BRow>
     </div>
+
     <BRow>
-      <BCol lg="12">
+      <BCol lg="6">
         <BCard no-body>
           <BCardHeader class="d-flex align-items-center gap-2">
             <div class="flex-grow-1">
               <BCardTitle tag="h5" class="mb-1">{{ coin }}</BCardTitle>
-              <!-- <h2>{{ coin }}</h2> -->
-              <!-- Burak -->
               <img
                 src="@/assets/images/svg/crypto-icons/btc.svg"
                 alt=""
@@ -112,52 +124,69 @@ export default {
                 <option>B</option>
                 <option>C</option>
               </select>
-              <!-- <span>Selected: {{ selected }}</span> -->
-
-              <!-- Box -->
-              <div class="box">
-                <h2>Deposit Details</h2>
-                <p class="text-muted mb-0">
-                  Deposit time depend on our partner exchange.
-                </p>
-                <!-- QR Code Image from URL -->
-                <div class="text-right mt-2">
-                  <qrcode-vue
-                    value="HELLOWORLD"
-                    size="300"
-                    level="H"
-                    class="qr-code-image"
-                    id="show-modal"
-                    @click="showModal = true"
-                  />
-
-                  <Teleport to="body">
-                    <!-- use the modal component, pass in the prop -->
-                    <modal :show="showModal" @close="showModal = false">
-                      <template #header>
-                        <h3></h3>
-                      </template>
-                    </modal>
-                  </Teleport>
-                </div>
-                <BCardBody v-if="canDeposit">
-                  <div v-for="address in addresses" :key="address">
-                    {{ address.chain }} - {{ address.address }}
-                  </div>
-                </BCardBody>
-                <BCardBody v-else>
-                  <div>Deposit for {{ $route.params.coin }} suspended</div>
-                </BCardBody>
-              </div>
-              <!-- Box END-->
             </div>
-
-            <!-- <div class="flex-shrink-0 hstack gap-2">
-                            <button class="btn btn-primary">Show QR Code</button>
-                        </div> -->
           </BCardHeader>
+
+          <!-- Box -->
+          <div class="box">
+            <div class="deposit-details">
+              <h2>Deposit Details</h2>
+              <p class="text-muted mb-0">
+                Deposit time depend on our partner exchange.
+              </p>
+              <!-- QR Code Image from text -->
+              <div class="text-right mt-2">
+                <qrcode-vue
+                  :value="get_deposit_address"
+                  size="300"
+                  level="H"
+                  class="qr-code-image-modal"
+                  id="show-modal"
+                  @click="showModal = true"
+                />
+                <Teleport to="body">
+                  <!-- use the modal component, pass in the prop -->
+                  <modal :show="showModal" @close="showModal = false">
+                    <template #header>
+                      <h3></h3>
+                    </template>
+                  </modal>
+                </Teleport>
+              </div>
+            </div>
+          </div>
         </BCard>
       </BCol>
+
+      <BCol lg="6">
+        <BCard no-body>
+          <div class="box">
+            <div class="address-details">
+              <BCardBody v-if="canDeposit">
+                <h2>Address Details</h2>
+                <div v-for="address in addresses" :key="address">
+                  {{ address.chain }} - {{ address.address }}
+                  <button
+                    class="btn btn-primary btn-sm"
+                    @click="copyToClipboard(address.address)"
+                  >
+                    Copy
+                  </button>
+                </div>
+              </BCardBody>
+              <BCardBody v-else>
+                <div>Deposit for {{ $route.params.coin }} suspended</div>
+              </BCardBody>
+            </div>
+          </div>
+        </BCard>
+      </BCol>
+    </BRow>
+  </Layout>
+</template>
+   <!-- <div class="flex-shrink-0 hstack gap-2">
+                            <button class="btn btn-primary">Show QR Code</button>
+                        </div> -->
 
       <!-- <BCol lg="3">
                 <BCard no-body>
@@ -181,9 +210,7 @@ export default {
                 </BCard>
 
             </BCol> -->
-    </BRow>
-  </Layout>
-</template>
+   
 
 
 <style lang="scss" scoped>
@@ -195,10 +222,9 @@ export default {
   border-radius: 10px;
 }
 
-.qr-code-image {
+.qr-code-image-modal {
   max-width: 100%;
   height: auto;
-  margin-top: 20px;
-  /* Add any additional styles for your QR code image */
 }
+
 </style>
