@@ -42,15 +42,16 @@ export const actions = {
     // starts, along with any other actions named `init` in other modules.
     // eslint-disable-next-line no-unused-vars
     init({ commit, state, dispatch }) {
-        client.database.getAccounts(['hightouch']).then((account) => {
-            let metaData
-            try {
-                metaData = JSON.parse(account[0].posting_json_metadata)
+        client.database.getAccounts(['drugwars']).then((account) => {
+            if (account&&account[0]){
+                let metaData
+                try {
+                    metaData = JSON.parse(account[0].posting_json_metadata)
 
-            } catch (error) {
-                console.log(error)
-            }
-            account[0].metaData = metaData
+                } catch (error) {
+                    console.log(error)
+                }
+                account[0].metaData = metaData }
             commit('saveAccount',  account[0]);
         })
         console.log(state)

@@ -57,6 +57,11 @@ export default {
             navbarMenuItems: []
         };
     },
+    computed: {
+        profile() {
+            return this.$store.state.auth.account || null
+        },
+    },
     beforeCreate() {
         let pageTopbar = document.getElementById("page-topbar");
         if (pageTopbar) {
@@ -422,7 +427,7 @@ export default {
                                 Dark</BLink>
                         </BDropdown>
 
-                        <BDropdown variant="link" class="ms-1 topbar-head-dropdown header-item" dropstart auto-close="outside" :offset="{ alignmentAxis: 60, crossAxis: 0, mainAxis: -50 }" toggle-class="btn-icon btn-topbar rounded-circle arrow-none" menu-class="dropdown-menu-xl dropdown-menu-end p-0">
+                        <BDropdown v-if="profile" variant="link" class="ms-1 topbar-head-dropdown header-item" dropstart auto-close="outside" :offset="{ alignmentAxis: 60, crossAxis: 0, mainAxis: -50 }" toggle-class="btn-icon btn-topbar rounded-circle arrow-none" menu-class="dropdown-menu-xl dropdown-menu-end p-0">
                             <template #button-content>
                                 <i class='bi bi-bell fs-2xl'></i>
                                 <span class="position-absolute topbar-badge p-0 d-flex align-items-center justify-content-center translate-middle badge rounded-pill bg-danger"><span class="notification-badge">4</span><span class="visually-hidden">unread
@@ -572,19 +577,18 @@ export default {
                                 </div>
                             </div>
                         </BDropdown>
-
-                        <BDropdown variant="link" class="ms-2 topbar-head-dropdown header-item" dropstart :offset="{ alignmentAxis: 60, crossAxis: 0, mainAxis: -50 }" toggle-class="btn-icon rounded-circle arrow-none" menu-class="p-2 dropdown-menu-end">
+                        <BDropdown v-if="profile" variant="link" class="ms-2 topbar-head-dropdown header-item" dropstart :offset="{ alignmentAxis: 60, crossAxis: 0, mainAxis: -50 }" toggle-class="btn-icon rounded-circle arrow-none" menu-class="p-2 dropdown-menu-end">
                             <template #button-content> <img class="rounded-circle img-fluid" src="https://steemitimages.com/u/future.witness/avatar" alt="Header Avatar">
                             </template>
                             <div class="d-flex gap-2 mb-3 topbar-profile">
                                 <div class="position-relative">
-                                    <img class="rounded-1" src="https://steemitimages.com/u/future.witness/avatar" alt="Header Avatar">
+                                    <img class="rounded-1" :src="'https://steemitimages.com/u/'+profile.name+'/avatar'" alt="Header Avatar">
                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger"><span class="visually-hidden">unread messages</span></span>
                                 </div>
                                 <div>
-                                    <h6 class="mb-1 fs-sm user-name">@hightouch</h6>
+                                    <h6 class="mb-1 fs-sm user-name">@{{ profile.name }}</h6>
                                     <p class="mb-0 fw-medium fs-xs">
-                                        <BLink href="#!">View on Steemit</BLink>
+                                        <BLink target="_blank" :href="'https://steemit.com/@'+profile.name">View on Steemit</BLink>
                                     </p>
                                 </div>
                             </div>
@@ -599,6 +603,16 @@ export default {
                                 Sign Out
                             </BLink>
                         </BDropdown>
+                        <div v-else class="ms-2 topbar-head-dropdown header-item">
+                            <BLink href="/login"
+                                class="btn btn-primary"
+                                >
+                                <span class="icon-user"
+                                    ><i class="ri-login-box-line align-bottom me-1"></i>
+                                    {{ $t("t-signin") }}</span
+                                >
+                            </BLink>
+                        </div>
                     </div>
                 </div>
             </div>

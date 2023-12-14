@@ -9,7 +9,6 @@ export default {
             page: 1,
             perPage: 5,
             pages: [],
-            profile: this.$store.state.auth.account || null,
             walletTable: [
                 {
                     id: 1,
@@ -27,6 +26,9 @@ export default {
     computed: {
         displayedPosts() {
             return this.paginate(this.walletTable);
+        },
+        profile() {
+            return this.$store.state.auth.account || null
         },
     },
     watch: {
@@ -88,7 +90,7 @@ export default {
             <BCol sm="auto">
               <div class="position-relative d-inline-block">
                 <img
-                  src="https://steemitimages.com/u/future.witness/avatar"
+                  :src="'https://steemitimages.com/u/'+profile.name+'/avatar'"
                   alt=""
                   class="avatar-xl rounded p-1 bg-body-secondary"
                 />
@@ -169,11 +171,11 @@ export default {
               </h6>
             </div>
           </BCol>
-          <BCol lg="4" md="4">
+          <BCol v-if="profile.metaData.profile.website" lg="4" md="4">
             <div>
               <p class="text-muted text-uppercase fs-sm mb-1">Website</p>
               <h6 class="mb-0 lh-base fs-md">
-                <BLink href="#!" class="text-reset">futureshock.world</BLink>
+                <BLink href="#!" class="text-reset"> {{profile.metaData.profile.website}} </BLink>
               </h6>
             </div>
           </BCol>
