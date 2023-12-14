@@ -161,14 +161,10 @@ export default {
               <h6 class="mb-0 lh-base fs-md">Somewhere</h6>
             </div>
           </BCol>
-          <BCol lg="4" md="4">
+          <BCol v-if="profile.metaData.profile.about" lg="4" md="4">
             <div>
               <p class="text-muted text-uppercase fs-sm mb-1">About</p>
-              <h6 class="mb-0 lh-base fs-md">
-                <BLink href="mailto:sophiabethany@steemx.com" class="text-reset"
-                  >2{{ profile.metaData.profile.about }} 
-                </BLink>
-              </h6>
+              <h6 class="mb-0 lh-base fs-md">{{profile.metaData.profile.about}}</h6>
             </div>
           </BCol>
           <BCol v-if="profile.metaData.profile.website" lg="4" md="4">

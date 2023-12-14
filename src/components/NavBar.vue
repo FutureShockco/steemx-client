@@ -578,7 +578,7 @@ export default {
                             </div>
                         </BDropdown>
                         <BDropdown v-if="profile" variant="link" class="ms-2 topbar-head-dropdown header-item" dropstart :offset="{ alignmentAxis: 60, crossAxis: 0, mainAxis: -50 }" toggle-class="btn-icon rounded-circle arrow-none" menu-class="p-2 dropdown-menu-end">
-                            <template #button-content> <img class="rounded-circle img-fluid" src="https://steemitimages.com/u/future.witness/avatar" alt="Header Avatar">
+                            <template #button-content> <img class="rounded-circle img-fluid" :src="'https://steemitimages.com/u/'+profile.name+'/avatar'" alt="Header Avatar">
                             </template>
                             <div class="d-flex gap-2 mb-3 topbar-profile">
                                 <div class="position-relative">
