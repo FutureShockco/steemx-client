@@ -2,12 +2,10 @@
 import Modal from "@/components/modal.vue";
 import { coinChatData } from "@/common/data";
 import ws from "@/helpers/kbyte";
-import QrcodeVue from "qrcode.vue";
 
 export default {
   components: {
     Modal,
-    QrcodeVue,
   },
   data() {
     return {

@@ -2,10 +2,13 @@
 
 
 import { coinChatData } from "@/common/data";
+import steem from "steem";
 
 export default {
     data() {
         return {
+            buys:[],
+            sells:[],
             msg: "",
             submitted: false,
             coinChatData: coinChatData,
@@ -13,6 +16,15 @@ export default {
     },
     mounted() {
         this.loadTradingViewWidget();
+        const that = this
+        steem.api.getOrderBook(50, function (err, result) {
+            console.log(err, result);
+            if(result)
+            {
+                that.buys = result.bids
+                that.sells = result.asks
+            }
+        });
     },
     methods: {
         loadTradingViewWidget() {
@@ -130,52 +142,18 @@ export default {
                                     <table class="table table-borderless table-hover table-striped mb-0">
                                         <thead class="text-uppercase fs-xs text-muted">
                                             <tr>
-                                                <th>Price</th>
                                                 <th>Amount</th>
+                                                <th>Price</th>
                                                 <th>Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>95.3</td>
-                                                <td>0.25</td>
-                                                <td>$4,782</td>
+                                            <tr v-for="sell in sells" :key="sell">
+                                                <td>{{sell.order_price.quote}}</td>
+                                                <td>{{sell.real_price}}</td>
+                                                <td>{{sell}}</td>
                                             </tr>
-                                            <tr>
-                                                <td>96.9</td>
-                                                <td>0.31</td>
-                                                <td>$3,874</td>
-                                            </tr>
-                                            <tr>
-                                                <td>97.2</td>
-                                                <td>0.49</td>
-                                                <td>$9,367</td>
-                                            </tr>
-                                            <tr>
-                                                <td>98.2</td>
-                                                <td>0.74</td>
-                                                <td>$9,365</td>
-                                            </tr>
-                                            <tr>
-                                                <td>99.6</td>
-                                                <td>0.80</td>
-                                                <td>$1,989</td>
-                                            </tr>
-                                            <tr>
-                                                <td>100.6</td>
-                                                <td>0.94</td>
-                                                <td>$10,235</td>
-                                            </tr>
-                                            <tr>
-                                                <td>101.9</td>
-                                                <td>0.33</td>
-                                                <td>$11,775</td>
-                                            </tr>
-                                            <tr>
-                                                <td>102.2</td>
-                                                <td>0.39</td>
-                                                <td>$17,463</td>
-                                            </tr>
+                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -193,52 +171,18 @@ export default {
                                     <table class="table table-borderless table-hover table-striped mb-0">
                                         <thead class="text-uppercase fs-xs text-muted">
                                             <tr>
-                                                <th>Price</th>
                                                 <th>Amount</th>
+                                                <th>Price</th>
                                                 <th>Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>95.3</td>
-                                                <td>0.25</td>
-                                                <td>$4,782</td>
+                                            <tr v-for="buy in buys" :key="buy">
+                                                <td>{{buy.order_price.quote}}</td>
+                                                <td>{{buy.real_price}}</td>
+                                                <td>{{buy}}</td>
                                             </tr>
-                                            <tr>
-                                                <td>96.9</td>
-                                                <td>0.31</td>
-                                                <td>$3,874</td>
-                                            </tr>
-                                            <tr>
-                                                <td>97.2</td>
-                                                <td>0.49</td>
-                                                <td>$9,367</td>
-                                            </tr>
-                                            <tr>
-                                                <td>98.2</td>
-                                                <td>0.74</td>
-                                                <td>$9,365</td>
-                                            </tr>
-                                            <tr>
-                                                <td>99.6</td>
-                                                <td>0.80</td>
-                                                <td>$1,989</td>
-                                            </tr>
-                                            <tr>
-                                                <td>100.6</td>
-                                                <td>0.94</td>
-                                                <td>$10,235</td>
-                                            </tr>
-                                            <tr>
-                                                <td>101.9</td>
-                                                <td>0.33</td>
-                                                <td>$11,775</td>
-                                            </tr>
-                                            <tr>
-                                                <td>102.2</td>
-                                                <td>0.39</td>
-                                                <td>$17,463</td>
-                                            </tr>
+                                         
                                         </tbody>
                                     </table>
                                 </div>
@@ -335,7 +279,8 @@ export default {
                                     </div>
                                 </BCol>
                                 <BCol cols="auto">
-                                    <button type="submit" class="btn btn-secondary" @click="sendMsg"><i class="bi bi-send"></i></button>
+                                    <button type="submit" class="btn btn-secondary" @click="sendMsg"><i
+                                            class="bi bi-send"></i></button>
                                 </BCol>
                             </BRow>
                         </div>
