@@ -9,7 +9,8 @@ export const state = {
     steemHistory: null,
     currentTokenHistory: null,
     loading: null,
-    balances: []
+    balances: [],
+    steemMarket: null
 };
 
 export const mutations = {
@@ -33,6 +34,9 @@ export const mutations = {
     },
     SET_BALANCE(state, payload) {
         state.balances = payload;
+    },
+    SET_STEEM_MARKET(state, payload) {
+        state.steemMarket = payload;
     }
 };
 
@@ -115,7 +119,7 @@ export const actions = {
             commit('SET_STEEMX_TOP', steemCurrencies);
 
         })
-        ssc.findOne('tokens', 'balances', {  }, (err, result) => {
+        ssc.findOne('tokens', 'balances', {}, (err, result) => {
             console.log(err, result);
 
 
@@ -139,5 +143,58 @@ export const actions = {
         //         */
         //     })
         commit('SET_LOADING', false);
+
+        let series = [
+            {
+                name: "Buy",
+                data: [
+                    { "x": 490, "y": 3440 },
+                    { "x": 491, "y": 3240 },
+                    { "x": 492, "y": 2740 },
+                    { "x": 493, "y": 1740 },
+                    { "x": 494, "y": 1440 },
+                    { "x": 496, "y": 1140 },
+                    { "x": 497, "y": 340 },
+                    { "x": 498, "y": 190 },
+                    { "x": 499, "y": 170 },
+                    { "x": 500, "y": 100 },
+                    { "x": 501, "y": null },
+                    { "x": 502, "y": null },
+                    { "x": 503, "y": null },
+                    { "x": 504, "y": null },
+                    { "x": 510, "y": null },
+                    { "x": 511, "y": null },
+                    { "x": 513, "y": null },
+                    { "x": 514, "y": null },
+                    { "x": 517, "y": null },
+                    { "x": 520, "y": null }
+                ]
+            }, {
+                name: "Sell",
+                data: [
+                    { "x": 490, "y": null },
+                    { "x": 491, "y": null },
+                    { "x": 492, "y": null },
+                    { "x": 493, "y": null },
+                    { "x": 494, "y": null },
+                    { "x": 496, "y": null },
+                    { "x": 497, "y": null },
+                    { "x": 498, "y": null },
+                    { "x": 499, "y": null },
+                    { "x": 500, "y": null },
+                    { "x": 501, "y": 9 },
+                    { "x": 502, "y": 184 },
+                    { "x": 503, "y": 1184 },
+                    { "x": 504, "y": 1909 },
+                    { "x": 510, "y": 2009 },
+                    { "x": 511, "y": 2459 },
+                    { "x": 513, "y": 3809 },
+                    { "x": 514, "y": 4109 },
+                    { "x": 517, "y": 5109 },
+                    { "x": 520, "y": 6109 }
+                ]
+            }
+        ]
+        commit('SET_STEEM_MARKET', series);
     },
 };
