@@ -22,12 +22,11 @@ export default {
                 stroke: {
                     curve: 'straight'
                 },
-
+                colors: ['#1FBF8F', '#f56665']
             },
         };
     },
     mounted() {
-        // this.loadTradingViewWidget();
         const that = this
         steem.api.getOrderBook(50, function (err, result) {
             console.log(err, result);
@@ -44,33 +43,7 @@ export default {
 
     },
     methods: {
-        loadTradingViewWidget() {
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = 'https://s3.tradingview.com/tv.js';
-            script.async = true;
-            script.onload = () => {
-                this.initTradingViewWidget();
-            };
-            document.body.appendChild(script);
-        },
 
-        initTradingViewWidget() {
-            new window.TradingView.widget({
-                width: '100%',
-                height: 550,
-                symbol: 'CRYPTO:BTCUSD',
-                interval: '1',
-                timezone: 'Europe/London',
-                theme: 'light',
-                style: '1',
-                locale: 'in',
-                toolbar_bg: '#F1F3F6',
-                enable_publishing: false,
-                allow_symbol_change: true,
-                container_id: 'bitcoinCrypto'
-            });
-        },
 
         currentTime() {
             const hours = new Date().getHours();
@@ -137,8 +110,8 @@ export default {
                             <button class="btn btn-danger">Sell</button>
                         </div> -->
                         <div class="flex-shrink-0 hstack gap-2">
-                                <button class="btn btn-primary text-uppercase mt-3">Switch market</button>
-                            </div>
+                            <button class="btn btn-primary text-uppercase mt-3">Switch market</button>
+                        </div>
                     </BCardHeader>
                     <BCardBody>
                         <div class="tradingview-widget-container">
@@ -150,14 +123,14 @@ export default {
                                     rel="noopener nofollow" target="_blank">
                                     <span class="blue-text">Track all markets on TradingView</span></router-link>
                             </div> -->
-                           
+
                         </div>
                     </BCardBody>
                 </BCard>
                 <BCard no-body>
                     <BRow>
                         <BCol lg="6">
-                            <div class="form p-5">
+                            <div class="form p-4">
                                 <BCardTitle tag="h4" class="text-success">BUY STEEM</BCardTitle>
 
                                 <div class="input-group mt-3">
@@ -184,7 +157,7 @@ export default {
 
                         </BCol>
                         <BCol lg="6">
-                            <div class="form p-5">
+                            <div class="form p-4">
                                 <BCardTitle tag="h4" class="text-danger">SELL STEEM</BCardTitle>
 
                                 <div class="input-group mt-3">
@@ -214,35 +187,7 @@ export default {
 
                 </BCard>
                 <BRow>
-                    <BCol lg="6">
-                        <BCard no-body>
-                            <BCardHeader class="hstack gap-2 align-items-center">
-                                <BCardTitle tag="h5" class="flex-grow-1 mb-0">Sell Order</BCardTitle>
-                                <BLink href="#!">View All <i class="bi bi-arrow-right align-baseline"></i></BLink>
-                            </BCardHeader>
-                            <BCardBody class="pt-2">
-                                <div class="table-responsive table-card mb-n3">
-                                    <table class="table table-borderless table-hover table-striped mb-0">
-                                        <thead class="text-uppercase fs-xs text-muted">
-                                            <tr>
-                                                <th>Amount</th>
-                                                <th>Price</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="sell in sells" :key="sell">
-                                                <td>{{ sell.order_price.quote }}</td>
-                                                <td>{{ sell.real_price }}</td>
-                                                <td>{{ sell }}</td>
-                                            </tr>
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </BCardBody>
-                        </BCard>
-                    </BCol>
                     <BCol lg="6">
                         <BCard no-body>
                             <BCardHeader class="hstack gap-2 align-items-center">
@@ -262,8 +207,37 @@ export default {
                                         <tbody>
                                             <tr v-for="buy in buys" :key="buy">
                                                 <td>{{ buy.order_price.quote }}</td>
-                                                <td>{{ buy.real_price }}</td>
+                                                <td>{{ _dt(buy.real_price) }}</td>
                                                 <td>{{ buy }}</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </BCardBody>
+                        </BCard>
+                    </BCol>
+                    <BCol lg="6">
+                        <BCard no-body>
+                            <BCardHeader class="hstack gap-2 align-items-center">
+                                <BCardTitle tag="h5" class="flex-grow-1 mb-0">Sell Order</BCardTitle>
+                                <BLink href="#!">View All <i class="bi bi-arrow-right align-baseline"></i></BLink>
+                            </BCardHeader>
+                            <BCardBody class="pt-2">
+                                <div class="table-responsive table-card mb-n3">
+                                    <table class="table table-borderless table-hover table-striped mb-0">
+                                        <thead class="text-uppercase fs-xs text-muted">
+                                            <tr>
+                                                <th>Amount</th>
+                                                <th>Price</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="sell in sells" :key="sell">
+                                                <td>{{ sell.order_price.quote }}</td>
+                                                <td>{{ _dt(sell.real_price) }}</td>
+                                                <td>{{ sell }}</td>
                                             </tr>
 
                                         </tbody>
