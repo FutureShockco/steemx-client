@@ -22,7 +22,15 @@ export default {
                 stroke: {
                     curve: 'straight'
                 },
-                colors: ['#1FBF8F', '#f56665']
+                colors: ['#1FBF8F', '#f56665'],
+                xaxis: {
+                    type: 'numeric',
+                    labels: {
+                        show: false
+                    },
+                    tickAmount :10,
+                    decimalInFloat: 2,
+                },
             },
         };
     },

@@ -150,14 +150,20 @@ export const actions = {
                 let totalAsks = 0
                 let bids = []
                 let totalBids = 0
-                result.asks.forEach(element => {
+                result.bids.reverse().forEach(element => {
+                    totalBids+=element.sbd
+                });
+                result.bids.reverse().forEach(element => {
+                    totalBids-=element.sbd
+                    bids.push({ "x": element.real_price, "y": totalBids/1000 })
+                    asks.push({ "x": element.real_price, "y": null })
+                });
+                result.asks.reverse().forEach(element => {
                     totalAsks+=element.sbd/1000
                     asks.push({ "x": element.real_price, "y": totalAsks })
+                    bids.push({ "x": element.real_price, "y": null })
                 });
-                result.bids.forEach(element => {
-                    totalBids+=element.sbd/1000
-                    bids.push({ "x": element.real_price, "y": totalBids })
-                });
+
                 console.log(bids)
                 let series = [
                     {
