@@ -96,7 +96,7 @@ export default {
     <div class="page-title-box">
       <BRow class="align-items-center gy-3">
         <BCol cols="md">
-          <PageHeader :title="'Deposit '" pagetitle="Crypto" />
+          <PageHeader :title="'Deposit ' + coin" pagetitle="Crypto" />
         </BCol>
         <BCol md="auto" class="ms-auto">
           <RightBar />
@@ -105,42 +105,50 @@ export default {
     </div>
 
     <BRow>
-      <BCol lg="6" style="width: 100%;">
+      <BCol lg="6">
         <BCard no-body>
           <BCardHeader class="d-flex align-items-center gap-2">
             <div class="flex-grow-1">
-              <BCardTitle tag="h5" class="mb-1">Portfolio Balance</BCardTitle>
-              <h1 class="mb-0 me-3">Balance</h1>
+              <BCardTitle tag="h5" class="mb-1">{{ coin }}</BCardTitle>
+              <img
+                src="@/assets/images/svg/crypto-icons/btc.svg"
+                alt=""
+                class="avatar-sm"
+              />
+              <select
+                v-model="selected"
+                style="width: 500px; height: 45px; margin-left: 10px"
+              >
+                <option disabled value="">{{ coin }}</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+              </select>
             </div>
-              <div class="buttons">          
-    <button class="btn btn-primary btn-sm ph ph-arrow-square-in" @click="showModal = true" >Buy Crypto</button>
-    <button class="btn btn-primary btn-sm ph ph-bank" @click="showModal = true">Deposit</button>
-    <button class="btn btn-primary btn-sm ph ph-export" @click="showModal = true">Withdraw</button>
-    
- </div>
-           
           </BCardHeader>
+
+          <!-- Box -->
           <div class="box">
             <div class="deposit-details">
               <h2>Deposit Details</h2>
               <p class="text-muted mb-0">
                 Deposit time depend on our partner exchange.
               </p>
-              <!-- QR Code Image from adress -->
+              <!-- QR Code Image from text -->
               <div class="text-right mt-2">
-                <!-- <qrcode-vue
+                <qrcode-vue
                   :value="get_deposit_address"
                   size="300"
                   level="H"
                   class="qr-code-image-modal"
                   id="show-modal"
                   @click="showModal = true"
-                /> -->
+                />
                 <Teleport to="body">
-                
+                  <!-- use the modal component, pass in the prop -->
                   <modal :show="showModal" @close="showModal = false">
                     <template #header>
-               
+                      <h3></h3>
                     </template>
                   </modal>
                 </Teleport>
@@ -148,7 +156,9 @@ export default {
             </div>
           </div>
         </BCard>
-     
+      </BCol>
+
+      <BCol lg="6">
         <BCard no-body>
           <div class="box">
             <div class="address-details">
@@ -206,7 +216,7 @@ export default {
 <style lang="scss" scoped>
 .box {
   border: 1px solid #ccc;
-  padding: 50px;
+  padding: 20px;
   margin: 20px;
   background-color: 10 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -215,28 +225,6 @@ export default {
 .qr-code-image-modal {
   max-width: 100%;
   height: auto;
-}
-
-button:hover {
- background-color: #0056b3;
-}
-.buttons button {
-  margin-left: 5px;
-  
-}
-.buttons {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-.ph.ph-arrow-square-in {
-  font-size: 1rem;
-}
-.ph.ph-bank{
-  font-size: 1rem;
-}
-.ph.ph-export{
-  font-size: 1rem;
 }
 
 </style>
