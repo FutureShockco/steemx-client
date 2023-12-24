@@ -7,53 +7,51 @@ import steem from "steem";
 export default {
     data() {
         return {
-            buys:[],
-            sells:[],
+            buys: [],
+            sells: [],
             msg: "",
             submitted: false,
             coinChatData: coinChatData,
+            chartOptions: {
+                chart: {
+                    type: 'area',
+                    toolbar: {
+                        show: false,
+                    }
+                },
+                stroke: {
+                    curve: 'straight'
+                },
+                colors: ['#1FBF8F', '#f56665'],
+                xaxis: {
+                    type: 'numeric',
+                    labels: {
+                        show: false
+                    },
+                    tickAmount :10,
+                    decimalInFloat: 2,
+                },
+            },
         };
     },
     mounted() {
-        this.loadTradingViewWidget();
         const that = this
         steem.api.getOrderBook(50, function (err, result) {
             console.log(err, result);
-            if(result)
-            {
+            if (result) {
                 that.buys = result.bids
                 that.sells = result.asks
             }
         });
     },
-    methods: {
-        loadTradingViewWidget() {
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = 'https://s3.tradingview.com/tv.js';
-            script.async = true;
-            script.onload = () => {
-                this.initTradingViewWidget();
-            };
-            document.body.appendChild(script);
+    computed: {
+        series() {
+            return this.$store.state.tokens.steemMarket
         },
 
-        initTradingViewWidget() {
-            new window.TradingView.widget({
-                width: '100%',
-                height: 550,
-                symbol: 'CRYPTO:BTCUSD',
-                interval: '1',
-                timezone: 'Europe/London',
-                theme: 'light',
-                style: '1',
-                locale: 'in',
-                toolbar_bg: '#F1F3F6',
-                enable_publishing: false,
-                allow_symbol_change: true,
-                container_id: 'bitcoinCrypto'
-            });
-        },
+    },
+    methods: {
+
 
         currentTime() {
             const hours = new Date().getHours();
@@ -112,25 +110,121 @@ export default {
                 <BCard no-body>
                     <BCardHeader class="d-flex align-items-center gap-2">
                         <div class="flex-grow-1">
-                            <BCardTitle tag="h5" class="mb-1">STEEM (BTCUSD)</BCardTitle>
+                            <BCardTitle tag="h5" class="mb-1">STEEM/SBD INTERNAL MARKET</BCardTitle>
                             <p class="text-muted mb-0">Cryptocurrency</p>
                         </div>
-                        <div class="flex-shrink-0 hstack gap-2">
+                        <!-- <div class="flex-shrink-0 hstack gap-2">
                             <button class="btn btn-success">Buy</button>
                             <button class="btn btn-danger">Sell</button>
+                        </div> -->
+                        <div class="flex-shrink-0 hstack gap-2">
+                            <button class="btn btn-primary text-uppercase mt-3">Switch market</button>
                         </div>
                     </BCardHeader>
                     <BCardBody>
                         <div class="tradingview-widget-container">
-                            <div id="bitcoinCrypto"></div>
-                            <div class="tradingview-widget-copyright"><router-link to="https://in.tradingview.com/"
+                            <apexchart v-if="series && series[0] && series[0].data && series[0].data.length > 0"
+                                id="steem_overview" class="apex-charts" dir="ltr" height="367" :series="series"
+                                :options="chartOptions" />
+                            <!-- <div id="bitcoinCrypto"></div> -->
+                            <!-- <div class="tradingview-widget-copyright"><router-link to="https://in.tradingview.com/"
                                     rel="noopener nofollow" target="_blank">
                                     <span class="blue-text">Track all markets on TradingView</span></router-link>
-                            </div>
+                            </div> -->
+
                         </div>
                     </BCardBody>
                 </BCard>
+                <BCard no-body>
+                    <BRow>
+                        <BCol lg="6">
+                            <div class="form p-4">
+                                <BCardTitle tag="h4" class="text-success">BUY STEEM</BCardTitle>
+
+                                <div class="input-group mt-3">
+                                    <label class="input-group-text" id="a1" style="width: 90px;">PRICE</label>
+                                    <input type="text" class="form-control" placeholder="0.000" aria-label="0"
+                                        aria-describedby="a1">
+                                    <span class="input-group-text" id="a1" style="width: 100px;">SBD/STEEM</span>
+                                </div>
+                                <div class="input-group mt-3">
+                                    <label class="input-group-text" id="a1" style="width: 90px;">AMOUNT</label>
+                                    <input type="text" class="form-control" placeholder="0.000" aria-label="0"
+                                        aria-describedby="a1">
+                                    <span class="input-group-text" id="a1" style="width: 100px;">STEEM</span>
+                                </div>
+                                <div class="input-group mt-3">
+                                    <label class="input-group-text" id="a1" style="width: 90px;">TOTAL</label>
+                                    <input type="text" class="form-control" placeholder="0.000" aria-label="0"
+                                        aria-describedby="a1">
+                                    <span class="input-group-text" id="a1" style="width: 100px;">SBD</span>
+                                </div>
+                                <button class="btn btn-success text-uppercase mt-3 disabled">Buy steem</button>
+
+                            </div>
+
+                        </BCol>
+                        <BCol lg="6">
+                            <div class="form p-4">
+                                <BCardTitle tag="h4" class="text-danger">SELL STEEM</BCardTitle>
+
+                                <div class="input-group mt-3">
+                                    <label class="input-group-text" id="a1" style="width: 90px;">PRICE</label>
+                                    <input type="text" class="form-control" placeholder="0.000" aria-label="0"
+                                        aria-describedby="a1">
+                                    <span class="input-group-text" id="a1" style="width: 100px;">SBD/STEEM</span>
+                                </div>
+                                <div class="input-group mt-3">
+                                    <label class="input-group-text" id="a1" style="width: 90px;">AMOUNT</label>
+                                    <input type="text" class="form-control" placeholder="0.000" aria-label="0"
+                                        aria-describedby="a1">
+                                    <span class="input-group-text" id="a1" style="width: 100px;">STEEM</span>
+                                </div>
+                                <div class="input-group mt-3">
+                                    <label class="input-group-text" id="a1" style="width: 90px;">TOTAL</label>
+                                    <input type="text" class="form-control" placeholder="0.000" aria-label="0"
+                                        aria-describedby="a1">
+                                    <span class="input-group-text" id="a1" style="width: 100px;">SBD</span>
+                                </div>
+                                <button class="btn btn-danger text-uppercase mt-3 disabled">Sell steem</button>
+
+                            </div>
+                        </BCol>
+                    </BRow>
+
+
+                </BCard>
                 <BRow>
+
+                    <BCol lg="6">
+                        <BCard no-body>
+                            <BCardHeader class="hstack gap-2 align-items-center">
+                                <BCardTitle tag="h5" class="flex-grow-1 mb-0">Buy Order</BCardTitle>
+                                <BLink href="#!">View All <i class="bi bi-arrow-right align-baseline"></i></BLink>
+                            </BCardHeader>
+                            <BCardBody class="pt-2">
+                                <div class="table-responsive table-card mb-n3">
+                                    <table class="table  table-borderless table-hover table-striped mb-0">
+                                        <thead class="text-uppercase fs-xs text-muted">
+                                            <tr>
+                                                <th>Amount</th>
+                                                <th>Price</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="buy in buys" :key="buy">
+                                                <td>{{ buy.order_price.quote }}</td>
+                                                <td>{{ _dt(buy.real_price) }}</td>
+                                                <td>{{ buy }}</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </BCardBody>
+                        </BCard>
+                    </BCol>
                     <BCol lg="6">
                         <BCard no-body>
                             <BCardHeader class="hstack gap-2 align-items-center">
@@ -149,40 +243,11 @@ export default {
                                         </thead>
                                         <tbody>
                                             <tr v-for="sell in sells" :key="sell">
-                                                <td>{{sell.order_price.quote}}</td>
-                                                <td>{{sell.real_price}}</td>
-                                                <td>{{sell}}</td>
+                                                <td>{{ sell.order_price.quote }}</td>
+                                                <td>{{ _dt(sell.real_price) }}</td>
+                                                <td>{{ sell }}</td>
                                             </tr>
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </BCardBody>
-                        </BCard>
-                    </BCol>
-                    <BCol lg="6">
-                        <BCard no-body>
-                            <BCardHeader class="hstack gap-2 align-items-center">
-                                <BCardTitle tag="h5" class="flex-grow-1 mb-0">Buy Order</BCardTitle>
-                                <BLink href="#!">View All <i class="bi bi-arrow-right align-baseline"></i></BLink>
-                            </BCardHeader>
-                            <BCardBody class="pt-2">
-                                <div class="table-responsive table-card mb-n3">
-                                    <table class="table table-borderless table-hover table-striped mb-0">
-                                        <thead class="text-uppercase fs-xs text-muted">
-                                            <tr>
-                                                <th>Amount</th>
-                                                <th>Price</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="buy in buys" :key="buy">
-                                                <td>{{buy.order_price.quote}}</td>
-                                                <td>{{buy.real_price}}</td>
-                                                <td>{{buy}}</td>
-                                            </tr>
-                                         
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -195,9 +260,9 @@ export default {
                 <BCard no-body>
                     <BCardBody>
                         <div class="text-center">
-                            <img src="@/assets/images/svg/crypto-icons/btc.svg" alt="" class="avatar-sm">
+                            <img src="@/assets/images/svg/crypto-icons/steem.svg" alt="" class="avatar-sm">
                             <div class="mt-3">
-                                <h6 class="fs-lg mb-1">STEEM (BTC)</h6>
+                                <h6 class="fs-lg mb-1">STEEM (STEEM)</h6>
                                 <p class="text-muted">1 BTC = 626,391.00 USD</p>
                             </div>
                         </div>

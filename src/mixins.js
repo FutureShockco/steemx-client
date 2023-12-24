@@ -13,6 +13,9 @@ export default {
     _d(number, format = '0,0.00') {
       return '$' + numeral(number).format(format);
     },
+    _dt(number, format = '0,0.00000') {
+      return '$' + numeral(number).format(format);
+    },
     _p(number) {
       return number.toFixed(2) + '%';
     },

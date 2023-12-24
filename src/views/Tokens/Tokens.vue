@@ -271,7 +271,7 @@ export default {
                                                         menu-class="dropdown-menu-end">
                                                         <template #button-content> <i class="bi bi-three-dots-vertical"></i>
                                                         </template>
-                                                        <BDropdownItem href="/crypto/coin-overview">Trade
+                                                        <BDropdownItem :to="'/trade/' + data.name">Trade
                                                         </BDropdownItem>
                                                         <BDropdownItem :to="'/deposit/' + data.name">Deposit
                                                         </BDropdownItem>

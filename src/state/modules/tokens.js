@@ -1,4 +1,4 @@
-// import axios from "axios";
+import steem from "steem";
 import ssc from '@/helpers/ssc';
 import ws from '@/helpers/kbyte';
 
@@ -9,7 +9,8 @@ export const state = {
     steemHistory: null,
     currentTokenHistory: null,
     loading: null,
-    balances: []
+    balances: [],
+    steemMarket: null
 };
 
 export const mutations = {
@@ -33,6 +34,9 @@ export const mutations = {
     },
     SET_BALANCE(state, payload) {
         state.balances = payload;
+    },
+    SET_STEEM_MARKET(state, payload) {
+        state.steemMarket = payload;
     }
 };
 
@@ -115,7 +119,7 @@ export const actions = {
             commit('SET_STEEMX_TOP', steemCurrencies);
 
         })
-        ssc.findOne('tokens', 'balances', {  }, (err, result) => {
+        ssc.findOne('tokens', 'balances', {}, (err, result) => {
             console.log(err, result);
 
 
@@ -139,5 +143,40 @@ export const actions = {
         //         */
         //     })
         commit('SET_LOADING', false);
+        steem.api.getOrderBook(500, function (err, result) {
+            console.log(err, result);
+            if (result) {
+                let asks = []
+                let totalAsks = 0
+                let bids = []
+                let totalBids = 0
+                result.bids.reverse().forEach(element => {
+                    totalBids+=element.sbd
+                });
+                result.bids.reverse().forEach(element => {
+                    totalBids-=element.sbd
+                    bids.push({ "x": element.real_price, "y": totalBids/1000 })
+                    asks.push({ "x": element.real_price, "y": null })
+                });
+                result.asks.reverse().forEach(element => {
+                    totalAsks+=element.sbd/1000
+                    asks.push({ "x": element.real_price, "y": totalAsks })
+                    bids.push({ "x": element.real_price, "y": null })
+                });
+
+                console.log(bids)
+                let series = [
+                    {
+                        name: "Buy",
+                        data: bids
+                    }, {
+                        name: "Sell",
+                        data: asks
+                    }
+                ]
+                commit('SET_STEEM_MARKET', series);
+            }
+        });
+
     },
 };
