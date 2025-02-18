@@ -13,11 +13,7 @@ export default {
       allocationOverviewChart: allocationOverviewChart,
       stockMarketGainersChart: stockMarketGainersChart,
       stockMarketTab: 'Active',
-      steemPrice: this.$store.state.tokens.steem,
-      series: [{
-        data: this.$store.state.tokens.steemHistory
-      }],
-      topCurrencies: this.$store.state.tokens.top.slice(1, 5),
+
       chartOptions: {
         chart: {
           type: 'candlestick',
@@ -114,6 +110,16 @@ export default {
     displayedPosts() {
       return this.paginate(this.myCurrenciesData);
     },
+    topCurrencies() {
+      return this.$store.state.tokens.top.slice(1, 5)
+    },
+    steemPrice() { return this.$store.state.tokens.steem },
+    series() {
+      return [{
+        data: this.$store.state.tokens.steemHistory
+      }]
+    }
+
   },
   watch: {
     myCurrenciesData() {
@@ -184,8 +190,9 @@ export default {
                 <p class="text-muted fs-xs mb-4">{{ currency.name }}/USD</p>
                 <!-- {{ currency }} -->
                 <h4 class="mb-0">
-                  <count-to :startVal="0" :duration="5000" :endVal="currency.PRICE" :decimals="2" prefix="$"></count-to>{{
-                    "" }}
+                  <count-to :startVal="0" :duration="5000" :endVal="currency.PRICE" :decimals="2"
+                    prefix="$"></count-to>{{
+                      "" }}
                   <small class="fw-normal text-muted fs-xs">USD</small>
                 </h4>
               </BCardBody>
@@ -302,7 +309,8 @@ export default {
                   </BLink>
                 </li>
               </ul>
-              <ul class="list-unstyled crypto-chart-menu d-inline-flex gap-3 flex-wrap p-1 bg-light rounded-pill me-auto">
+              <ul
+                class="list-unstyled crypto-chart-menu d-inline-flex gap-3 flex-wrap p-1 bg-light rounded-pill me-auto">
                 <li>
                   <BLink href="#!"
                     class="avatar-xs btn fs-2xs fw-medium rounded-circle d-flex align-items-center flex-shrink-0 justify-content-center active">
@@ -347,7 +355,7 @@ export default {
               <BCardBody>
                 <BTabs nav-class="nav-fill nav-secondary gap-1 p-1 small bg-light rounded-pill shadow-sm"
                   active-nav-item-class="rounded-pill" content-class="mt-3" pills>
-                  <BTab title="Balance" active>
+                  <BTab title="Echelon" active>
                     <div class="d-flex gap-2">
                       <div class="flex-grow-1">
                         <h5>$23,475.97</h5>
@@ -386,7 +394,7 @@ export default {
                       <button class="btn btn-outline-primary w-100">Withdraw</button>
                     </div>
                   </BTab>
-                  <BTab title="Pending">
+                  <BTab title="Steem">
                     <div class="d-flex gap-2">
                       <div class="flex-grow-1">
                         <h5>$14,941.26</h5>
@@ -421,7 +429,8 @@ export default {
                       </BRow>
                     </div>
                     <div class="hstack gap-2 mt-4">
-                      <router-link to="/crypto/transactions" class="btn btn-primary w-100">View Transaction</router-link>
+                      <router-link to="/crypto/transactions" class="btn btn-primary w-100">View
+                        Transaction</router-link>
                     </div>
                   </BTab>
                 </BTabs>
@@ -675,7 +684,8 @@ export default {
                     <td>
                       <h6 class="text-success fs-xs mb-0 24h_change" v-if="data.status = 'success'"> {{ data.change }}
                       </h6>
-                      <h6 class="text-danger fs-xs mb-0 24h_change" v-if="data.status = 'danger'"> {{ data.change }} </h6>
+                      <h6 class="text-danger fs-xs mb-0 24h_change" v-if="data.status = 'danger'"> {{ data.change }}
+                      </h6>
                     </td>
                     <td class="total_coin">{{ data.totalCoin }}</td>
                     <td><router-link to="/lease" class="btn btn-sm btn-subtle-primary">Trade</router-link></td>

@@ -17,12 +17,14 @@ export default {
   },
   components: {
   },
+
   mounted() {
-    this.init()
     this.loadTokens()
+
+    this.init()
     setInterval(() => {
       this.loadTokens()
-    }, 3000);
+    }, 10000);
 
   },
   methods: {

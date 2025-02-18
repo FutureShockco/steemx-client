@@ -1,6 +1,6 @@
 <script>
 import ws from "@/helpers/kbyte";
-import QrcodeVue from 'qrcode.vue';
+//import QrcodeVue from 'qrcode.vue';
 
 export default {
   props: {
@@ -8,16 +8,15 @@ export default {
     value: String,
     coin: String, 
   },
-  components: {
-    QrcodeVue,
-  },
+  // components: {
+  //   QrcodeVue,
+  // },
   data() {
     return {
       canDeposit: false,
       addresses: [],
       get_deposit_address: '', 
-      selected: '',
-      coin: this.$route.params.coin,
+      selected: ''
     };
   },
   mounted() {

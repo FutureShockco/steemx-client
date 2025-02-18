@@ -2,7 +2,7 @@
 
 
 import { CountTo } from 'vue3-count-to';
-
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -34,9 +34,9 @@ export default {
             this.setPages();
         },
     },
-    created() {
+    async created() {
         this.setPages();
-
+        // const price = await axios.get(`https://rpc.steemx.com/@`+this.$router);
     },
     methods: {
         setPages() {

@@ -1,5 +1,4 @@
 import steem from "steem";
-import ssc from '@/helpers/ssc';
 import ws from '@/helpers/kbyte';
 
 export const state = {
@@ -107,23 +106,23 @@ export const actions = {
         // });
         // commit('CHANGE_PRELOADER', 'disable');
 
-        const steemCurrencies = []
-        ssc.find('tokens', 'tokens', {}, 1000, 0, [], (err, result) => {
-            console.log(err, result);
-            if (result)
-                result.forEach(element => {
-                    element.full = element.name
-                    element.name = element.symbol
-                    steemCurrencies.push(element)
-                });
-            commit('SET_STEEMX_TOP', steemCurrencies);
+        //const steemCurrencies = []
+        // ssc.find('tokens', 'tokens', {}, 1000, 0, [], (err, result) => {
+        //     console.log(err, result);
+        //     if (result)
+        //         result.forEach(element => {
+        //             element.full = element.name
+        //             element.name = element.symbol
+        //             steemCurrencies.push(element)
+        //         });
+        //     commit('SET_STEEMX_TOP', steemCurrencies);
 
-        })
-        ssc.findOne('tokens', 'balances', {}, (err, result) => {
-            console.log(err, result);
+        // })
+        // ssc.findOne('tokens', 'balances', {}, (err, result) => {
+        //     console.log(err, result);
 
 
-        })
+        // })
 
         // ssc.find(
         //     'tokens',
@@ -142,7 +141,6 @@ export const actions = {
         //             }
         //         */
         //     })
-        commit('SET_LOADING', false);
         steem.api.getOrderBook(500, function (err, result) {
             console.log(err, result);
             if (result) {
@@ -177,6 +175,7 @@ export const actions = {
                 commit('SET_STEEM_MARKET', series);
             }
         });
+        commit('SET_LOADING', false);
 
     },
 };
